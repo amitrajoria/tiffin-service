@@ -1,0 +1,22 @@
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAILURE = 'USER_FAILURE';
+
+export const VENDER_REQUEST = 'VENDER_REQUEST';
+export const VENDER_SUCCESS = 'VENDER_SUCCESS';
+export const VENDER_FAILURE = 'VENDER_FAILURE';
+
+export const PG_REQUEST = 'PG_REQUEST';
+export const PG_SUCCESS = 'PG_SUCCESS';
+export const PG_FAILURE = 'PG_FAILURE';
+
+export const TIFFIN_REQUEST = 'TIFFIN_REQUEST';
+export const TIFFIN_SUCCESS = 'TIFFIN_SUCCESS';
+export const TIFFIN_FAILURE = 'TIFFIN_FAILURE';
+
+export const CART_REQUEST = 'CART_REQUEST';
+export const CART_SUCCESS = 'CART_SUCCESS';
+export const CART_FAILURE = 'CART_FAILURE';
+
+export const ORDER_REQUEST = 'ORDER_REQUEST';
+export const ORDER_SUCCESS = 'ORDER_SUCCESS';
+export const ORDER_FAILURE = 'ORDER_FAILURE';

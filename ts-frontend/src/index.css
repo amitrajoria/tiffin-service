@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.app {
+  background-color: #61dafb!important;
+}
+
+/* Sign in form CSS */
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: rgb(232, 240, 254)!important;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 30px!important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 12.5px 21px!important;
+}
+
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+  /* left: 10px!important; */
+  line-height: 1.1375em!important;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  left: 10px!important;
+  line-height: 1.1375em!important;
+}
+
+.chakra-input, .chakra-textarea, .chakra-select__wrapper {
+  background-color: #f1f3f4!important;
+}
+
+.chakra-form-control {
+  border-color: antiquewhite!important;
+}
