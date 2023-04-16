@@ -3,7 +3,6 @@ import { Box, Button, Card, Divider, Flex, Heading, Input, Radio, RadioGroup, Si
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCard from '../components/OrderCard';
-import { UserData } from '../components/UserData';
 import { deleteCartItem, getCart, getProfile, placeOrder } from '../Redux/AppReducer/action';
 
 const Cart = () => {
