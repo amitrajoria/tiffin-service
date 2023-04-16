@@ -3,12 +3,14 @@ import { Box, Button, Card, Divider, Flex, Heading, Input, Radio, RadioGroup, Si
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCard from '../components/OrderCard';
-import { deleteCartItem, getCart, placeOrder } from '../Redux/AppReducer/action';
+import { UserData } from '../components/UserData';
+import { deleteCartItem, getCart, getProfile, placeOrder } from '../Redux/AppReducer/action';
 
 const Cart = () => {
 
     const dispatch = useDispatch();
     const cart = useSelector((store) => store.OrderReducer.cart);
+    const user = useSelector((store) => store.AppReducer.user);
     const [cartEmpty, setCartEmpty] = useState("");
     const cardBgColor = useColorModeValue('white', 'gray.900');
     // const [bookedId, setBookedId] = useState([]);
@@ -21,16 +23,20 @@ const Cart = () => {
     const [paymentDisable, setPaymentDisable] = useState(false);
 
     console.log("CART ", cart);
-
     useEffect(() => {
       setTotal(subTotal+delivery-coupon);
       // if(coupon != '8765678')
       //   setTotal((prev) => prev-coupon);
     }, [subTotal, coupon, delivery])
 
+    useEffect(() => {
+      if(!user)
+        dispatch(getProfile())
+    }, [user])
 
     useEffect(() => {
       if(cart.length == 0) {
+        console.log("USER VENDER ID ", user?.vender_id);
         dispatch(getCart())
         .then((res) => {
           console.log(res);
@@ -62,6 +68,7 @@ const Cart = () => {
     console.log("subTotal ", subTotal);
     console.log("QUAN ", orderQuantity);
     console.log("CARTEMPTY ", cartEmpty);
+    console.log("USER ", user.vender_id);
     
 
     const setQuantity = (curQuantity, tiffin_id, price) => {
@@ -84,7 +91,8 @@ const Cart = () => {
       const payload = {
         total, payment, delivery, 
         coupon , 
-        order : orderQuantity
+        order : orderQuantity,
+        vender_id : user.vender_id
       }
       // console.log(payload);
       // return ;
@@ -143,6 +151,7 @@ const Cart = () => {
                                 cart={cartItem} 
                                 setQuantity={setQuantity} 
                                 quantity={orderQuantity[cartItem.tiffin[0]._id]} 
+                                historyQuantity={""}
                                 deleteCart={deleteCart}/>
                                 </Box>
                         }) 

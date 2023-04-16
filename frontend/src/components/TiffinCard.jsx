@@ -1,7 +1,7 @@
 import { Badge, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getCart } from '../Redux/AppReducer/action';
+import { addToCart } from '../Redux/AppReducer/action';
 
 const TiffinCard = ({ tiffin, vender_id, cart, bookedId }) => {
 

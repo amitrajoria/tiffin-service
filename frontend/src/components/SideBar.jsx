@@ -50,7 +50,7 @@ const LinkItems = [
   { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
   { name: 'Cart', icon: FiCompass, href: '/cart'  },
   { name: 'Order History', icon: FiStar, href: '/orders' },
-  { name: 'Vender', icon: FiSettings },
+  { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
 ];
 
 export default function SideBar ({children}) {

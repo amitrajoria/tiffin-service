@@ -4,9 +4,10 @@ const { CartModel } = require("../models/Cart.module");
 
 const CartController = Router();
 
-CartController.get('/', authenticate, async (req, res) => {
+CartController.get('/:venderId', authenticate, async (req, res) => {
     const user_id = req.userId;
-    const cart = await CartModel.aggregate([{$match : {user_id}}, {$lookup: {
+    const vender_id = req.params.venderId;
+    const cart = await CartModel.aggregate([{$match : {user_id, vender_id}}, {$lookup: {
         from: "tiffins",
         localField: "tiffin_id",
         foreignField: "_id",

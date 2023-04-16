@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 
-const VenderCard = ({ vender, subscribe }) => {
+const VenderCard = ({ vender, subscribe, selectedVender }) => {
 
     const cardBgColor = useColorModeValue('white', 'gray.900');
 
@@ -35,7 +35,7 @@ const VenderCard = ({ vender, subscribe }) => {
           
               <CardFooter paddingBottom={'0'} paddingTop={'0px'}>
                 <Button variant='solid' colorScheme='blue' onClick={() => subscribe(vender._id)}>
-                  Subscribe
+                  {(vender._id && vender._id === selectedVender) ? 'Unsubscribe' : 'Subscribe'}
                 </Button>
               </CardFooter>
             </Stack>

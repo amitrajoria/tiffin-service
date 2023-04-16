@@ -1,10 +1,10 @@
-import { AddIcon, DeleteIcon, MinusIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon, MinusIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { Badge, Button, Card, CardBody, CardFooter, Flex, Heading, HStack, IconButton, Image, Input, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { bookOrder, deleteCartItem, getCart } from '../Redux/AppReducer/action';
 
-const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, deleteCart }) => {
+const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuantity, deleteCart }) => {
 
     const cardBgColor = useColorModeValue('white', 'gray.900');
     const dispatch = useDispatch();
@@ -21,18 +21,6 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, deleteCart 
 
     }
   }, [quantity])
-
-    // useEffect(() => {
-    //   if(cart.length == 0)
-    //     dispatch(getCart())
-      
-    //   if(cart.length != 0) {
-    //     const temp = cart
-    //                   .map((item) => item.tiffin_id);
-    //     setBookedId(temp);
-    //   }
-
-    // }, [cart.length])
 
     useEffect(() => {
       if(itemQuantity >= 1)
@@ -86,7 +74,17 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, deleteCart 
             <CardBody padding={'0 10px'}>
               <Flex direction={'row'} justifyContent='space-between'>
                 <Text fontSize='lg' fontWeight={'bold'}>{tiffin.title}</Text>
-                <DeleteIcon margin={'5px -3px auto auto'} fontSize='larger' cursor={'pointer'} onClick={(e) => deleteCart(e, cart._id)} />
+                {
+                  !historyQuantity && 
+                  <DeleteIcon margin={'5px -3px auto auto'} 
+                    fontSize='larger' 
+                    cursor={'pointer'} 
+                    onClick={(e) => deleteCart(e, cart._id)} 
+                  />
+                }
+                {
+                  historyQuantity && <Text fontSize='lg' fontWeight={'bold'}><SmallCloseIcon marginTop={'-4px'} /> {historyQuantity}</Text>
+                }
               </Flex>
               
               <Badge variant='subtle' colorScheme='green'>
@@ -97,7 +95,8 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, deleteCart 
             <CardFooter padding={'0 10px'}>
               <Stack direction={'row'} width='100%' justifyContent={'space-between'}>
                 <Text margin={'auto 0'} fontWeight='bold' fontSize={'larger'}>{tiffin.price} ₹</Text>
-                <HStack maxW='320px'>
+                {
+                !historyQuantity && <HStack maxW='320px'>
                     <IconButton
                         colorScheme='blue'
                         borderRadius={'full'}
@@ -117,7 +116,8 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, deleteCart 
                         width={'30px'}
                         onClick={() => setItemQuantity((prev) => prev+1)}
                         />
-                </HStack>
+                  </HStack>
+                }
               </Stack>
             </CardFooter>
           </Stack>

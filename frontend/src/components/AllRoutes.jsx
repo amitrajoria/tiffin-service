@@ -9,6 +9,7 @@ import Profile from '../pages/Profile'
 import Register from '../pages/Register.'
 import CustomerPrivateRoute from './CustomerPrivateRoute'
 import SideBar from './SideBar'
+import Providers from '../pages/Providers'
 
 
 const AllRoutes = () => {
@@ -21,6 +22,7 @@ const AllRoutes = () => {
             <Route path='/profile' element={<CustomerPrivateRoute><SideBar><Profile /></SideBar></CustomerPrivateRoute>}></Route>
             <Route path='/cart' element={<CustomerPrivateRoute><SideBar><Cart /></SideBar></CustomerPrivateRoute>}></Route>
             <Route path='/orders' element={<CustomerPrivateRoute><SideBar><OrderHistory /></SideBar></CustomerPrivateRoute>}></Route>
+            <Route path='/tiffin-providers' element={<CustomerPrivateRoute><SideBar><Providers /></SideBar></CustomerPrivateRoute>}></Route>
             <Route path='/custom' element={<CustomerPrivateRoute />} />
         </Routes>
     </>

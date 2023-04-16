@@ -25,13 +25,12 @@ const Profile = () => {
   const [formState, setFormState] = useState(initState);
   console.log(user);
   const { name, email, mobile, room_no, description, address, pg } = formState;
+  console.log(formState);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    // if(Object.keys(user).length === 0 )
-    //   dispatch(getProfile())
-    // const { name, email, mobile, room_no, description, address, pg } = user;
+    
     setFormState({ 
       name : (user?.name) ? user?.name : "",
       email : (user?.email) ? user?.email : "",
@@ -39,7 +38,7 @@ const Profile = () => {
       room_no : (user?.room_no) ? user?.room_no : "",
       description : (user?.description) ? user?.description : "",
       address : (user?.address) ? user?.address : "",
-      pg_id : (user?.pg_id) ? user?.pg_id : ""
+      pg : (user?.pg_id) ? user?.pg_id : ""
     });
   }, [user])
 
@@ -135,7 +134,8 @@ const Profile = () => {
                 </FormControl> 
                 <FormControl id="pg">
                   <FormLabel>Select PG</FormLabel>
-                  <Select placeholder={pg} name='select_pg' value={pg} onChange={handleChange} >
+                  <Select placeholder={(pg) ? pg : "Select PG"} name='select_pg' value={pg} onChange={handleChange} >
+                  {/* <option isD value='' isdisabled={true}>Select PG</option> */}
                     <option value='false'>Not in List</option>
                     {
                       pgs.length > 0 && pgs.map((item) => {

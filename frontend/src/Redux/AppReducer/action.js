@@ -28,20 +28,26 @@ const getPGs = () => dispatch => {
             .catch((err) => dispatch({ type: actions.PG_FAILURE, payload: err?.response?.data?.msg}))
 }
 
-const getTiffins = () => dispatch => {
+const getTiffins = (venderId) => async dispatch => {
+    if(!venderId)
+        return ;
+    console.log(" ACTION GET TIFFIN ", venderId);
     dispatch({ type: actions.TIFFIN_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return axios.get('http://localhost:8080/tiffins', { headers })
+    return axios.get(`http://localhost:8080/tiffins/${venderId}`, { headers })
             .then((res) => dispatch({ type: actions.TIFFIN_SUCCESS, payload: res?.data?.tiffin}))
             .catch((err) => dispatch({ type: actions.TIFFIN_FAILURE, payload: err?.response?.data?.msg}))
 }
 
-const getCart = () => dispatch => {
+const getCart = () => async dispatch => {
+    const user = await dispatch(getProfile());
+    const venderId = user?.payload?.vender_id;
+    console.log("ACTION GET CART VENDER ID ", venderId);
     dispatch({ type: actions.CART_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return axios.get('http://localhost:8080/cart', { headers })     
+    return axios.get(`http://localhost:8080/cart/${venderId}`, { headers })     
             // .then((res) => console.log(res))
             // .catch((err) => console.log(err))
             .then((res) => dispatch({ type: actions.CART_SUCCESS, payload: res?.data?.cart}))

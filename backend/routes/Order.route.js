@@ -13,21 +13,35 @@ OrderController.get('/', authenticate, async (req, res) => {
         localField: "_id",
         foreignField: "order_id",
         as: "tiffin_id"
-    }}
-    , {$lookup: {
+    }} 
+    , { $lookup: {
         from: "tiffins",
         localField: "tiffin_id.tiffin_id",
         foreignField: "_id",
         as: "tiffins"
     }} 
+    , { $lookup: {
+        from: "users",
+        localField: "vender_id",
+        foreignField: "_id",
+        as: "vender"
+    }} 
+    , { $unwind: "$vender" } 
+    // , {
+    //     $unwind: "$tiffins"
+    // },
+    // {
+    //     $group : {_id : "$_id"}
+    // }
+
     ]);
     res.status('200').send({orders});
 })
 
 OrderController.post('/add', authenticate, async (req, res) => {
     const user_id = req.userId;
-    const {total, payment, delivery, coupon, order} = req.body;
-    const newOrder = await OrderModel.create({user_id, total, coupon_id : coupon, delivery, payment});
+    const {total, payment, delivery, coupon, order, vender_id} = req.body;
+    const newOrder = await OrderModel.create({user_id, vender_id, total, coupon_id : coupon, delivery, payment});
     const newOrderId = newOrder._id;
     let payload = [];
     for(const order_obj in order) {

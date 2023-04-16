@@ -20,6 +20,7 @@ const Home = () => {
   const navigate = useNavigate();
   const cart = useSelector((store) => store.OrderReducer.cart);
   const [bookedId, setBookedId] = useState([]);
+  const [tiffinHeading, setTiffinHeading] = useState((tiffins.length > 0) ? "Today's Menu" : "");
     
   useEffect(() => {
     if(cart.length == 0)
@@ -44,15 +45,26 @@ const Home = () => {
       if(!user)
         dispatch(getProfile())
 
-      if(venders.length === 0)
-        dispatch(getVenders())
-      
-      if(tiffins.length === 0)
-        dispatch(getTiffins())
+  }, [user])
 
-  }, [user, venders.length, tiffins.length])
+  useEffect(() => {
+    if(venders.length === 0)
+      dispatch(getVenders())
+    
+    if(tiffins.length === 0) {
+      dispatch(getTiffins(user?.vender_id))
+      .then((res) => {
+        if(res?.type === "TIFFIN_SUCCESS") {
+          (res?.payload.length > 0) ? 
+            setTiffinHeading("Today's Menu") : 
+            setTiffinHeading("Tiffin Provider doesn't have any Menu");
+        }
+      })
+    }
 
-  // console.log(tiffins);
+}, [venders.length, tiffins.length, user?.vender_id])
+
+  console.log(tiffins);
 
   const subscribe = (vender_id) => {
     if(isProfileComplete()) {
@@ -80,7 +92,7 @@ const Home = () => {
   return (
     <> 
     {
-      showVenders === null && 
+      (showVenders === null || (showVenders === false && tiffinHeading === "")) && 
       <Stack padding={4} spacing={1}>
       <Skeleton height='40px'>
       </Skeleton>
@@ -102,7 +114,7 @@ const Home = () => {
     }
 
     {showVenders === true && <Heading as='h3' size='lg' margin={'10px 0'}>Please Select any Tiffin Provider to go further</Heading>}
-    {showVenders === false && <Heading as='h3' size='lg' margin={'10px 0'}>Today's Menu</Heading>}
+    {showVenders === false && <Heading as='h3' size='lg' margin={'10px 0'}>{tiffinHeading}</Heading>}
       
       {/* Vender Section */}
       
@@ -110,7 +122,7 @@ const Home = () => {
       {
         showVenders === true && venders.length > 0 && 
         venders.map((vender) => {
-          return <VenderCard key={vender._id} vender={vender} subscribe={subscribe} />
+          return <VenderCard key={vender._id} vender={vender} subscribe={subscribe} selectedVender={""} />
         })
       }
       </SimpleGrid>

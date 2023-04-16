@@ -14,9 +14,10 @@ const validateTiffin = (req, res, next) => {
 }
 
 
-TiffinController.get('/', authenticate, async (req, res) => {
+TiffinController.get('/:vender_id', authenticate, async (req, res) => {
     const userId = req.userId;
-    const tiffin = await TiffinModel.find({status : "active"});
+    const vender_id = req.params.vender_id;
+    const tiffin = await TiffinModel.find({vender_id, status : "active"});
     res.status('200').send({tiffin});
 })
 

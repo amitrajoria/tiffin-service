@@ -26,7 +26,7 @@ AuthController.post("/login", async (req, res) => {
         res.status('401').send({msg : "Invalid Creadentials"});
     else {
         bcrypt.compare(password, user?.password).then(function(result) {
-            var token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+            var token = jwt.sign({ userId: user._id, venderId : user.vender_id }, process.env.JWT_SECRET);
             if(!result)
                 res.status('401').send({msg : "Invalid Creadentials"});
             else 
