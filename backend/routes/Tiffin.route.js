@@ -21,8 +21,11 @@ TiffinController.get('/:vender_id', authenticate, async (req, res) => {
     res.status('200').send({tiffin});
 })
 
-TiffinController.post('/add', authorizeVender, validateTiffin, async (req, res) => {
-    const payload = req.body;
+TiffinController.post('/add/:vender_id', authorizeVender, validateTiffin, async (req, res) => {
+    const payload = {
+        ...req.body,
+        vender_id : req.params.vender_id
+    }
     const tiffin = new TiffinModel(payload);
     await tiffin.save();
     res.status("201").send({msg : 'Tiffin Added Successfully'});

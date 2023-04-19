@@ -1,15 +1,15 @@
-import { Button, FormControl, FormLabel, Input, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useDisclosure } from '@chakra-ui/react'
 import React, { useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { createTask, getTasks } from '../redux/AppReducer/action'
+import { addTiffin } from '../Redux/AppReducer/action'
 
 const initState = {
     title : "",
-    description : "Default description",
-    taskStatus : "todo",
-    tags : ["Others"],
-    subTasks : [],
+    description : "Tiffin Provider",
+    time : "",
+    price : "",
+    image : "",
 }
 
 const reducer = (state, action) => {
@@ -24,22 +24,27 @@ const reducer = (state, action) => {
                 ...state,
                 description : action.payload,
             }
-        case "taskStatus" : 
+        case "time" : 
             return {
                 ...state,
-                taskStatus : action.payload
+                time : action.payload
             }
-        case "tags" : 
+        case "price" : 
             return {
                 ...state,
-                tags : action.payload
+                price : action.payload
+            }
+        case "image" : 
+            return {
+                ...state,
+                image : action.payload
             }
         default :
             return state;
     }
 } 
 
-function AddMenu({isOpen, onClose}) {
+function AddMenu({isOpen, onClose, vender_id}) {
 
     const [formState, setFormState] = useReducer(reducer, initState);
     const dispatch = useDispatch();
@@ -51,21 +56,31 @@ function AddMenu({isOpen, onClose}) {
     const finalRef = React.useRef(null)
 
 
-    const createNewTask = () => {
-      dispatch(createTask(formState))
+    const createNewTiffin = () => {
+      console.log(formState);
+      console.log(vender_id);
+      const {title, description, time, price, image} = formState;
+      if(!title?.trim() || !description?.trim() || !time?.trim() || !price?.trim() || !image?.trim() ) {
+        alert("All form fields are Reuired ");
+        return ;
+      }
+      dispatch(addTiffin(formState, vender_id))
       .then((res) => {
-        if(res?.type != "TASKS_FAILURE")
+        if(res?.type === "TIFFIN_SUCCESS")
+          alert("New Tiffin Added Successfully");
+
+        if(res?.type != "TIFFIN_FAILURE")
           onClose();
       });
     }
-    
-    useEffect(() => {
-      if(response)
-        alert(response);
-      if(!isError) {
-        onClose();
-      }
-    }, [isError, response])
+    // Veg, Daal fry, Rice, 2 Chapaties, Rayta, Salad
+    // useEffect(() => {
+    //   if(response)
+    //     alert(response);
+    //   if(!isError) {
+    //     onClose();
+    //   }
+    // }, [isError, response])
 
     return (
       <>
@@ -89,40 +104,31 @@ function AddMenu({isOpen, onClose}) {
                 <FormLabel>Description</FormLabel>
                 <Textarea placeholder='Description' value={formState.description} onChange={(e) => setFormState({type: "description", payload: e.target.value})} />
               </FormControl> 
+              
+              <HStack>
+                <Box>
+                  <FormControl mt={4}>
+                    <FormLabel>Tiffin Time</FormLabel>
+                    <Input placeholder='Tiffin Time' value={formState.time} onChange={(e) => setFormState({type: "time", payload: e.target.value})} />
+                  </FormControl>
+                </Box>
+                <Box>
+                  <FormControl mt={4}>
+                    <FormLabel>Price ₹</FormLabel>
+                    <Input placeholder='Price' value={formState.price} onChange={(e) => setFormState({type: "price", payload: e.target.value})} />
+                  </FormControl>
+                </Box>
+              </HStack>
 
               <FormControl mt={4}>
-                <FormLabel>Task Status</FormLabel>  
-                <Select placeholder='Task Status'  value={formState.taskStatus} onChange={(e) => setFormState({type: "taskStatus", payload: e.target.value})} >
-                    <option value='todo'>Todo</option>
-                    <option value='in-progres'>In-Progess</option>
-                    <option value='done'>Done</option>
-                </Select>
-              </FormControl>
-
-              <FormControl mt={4}>
-                <FormLabel>Task Tags</FormLabel>
-                <Menu closeOnSelect={false}>
-                    <MenuButton as={Button}>
-                        Select Tags
-                    </MenuButton>
-                    <MenuList>
-                        <MenuOptionGroup title='Tags' type='checkbox'  value={formState.tags} onChange={(value) => setFormState({type: "tags", payload: value})} >
-                            {
-                                allTags.length > 0 && 
-                                allTags.map((item) => {
-                                    return <MenuItemOption key={item._id} value={item.tag}>{item.tag}</MenuItemOption>
-                                })
-                            }
-                        </MenuOptionGroup>
-                    </MenuList>
-                </Menu>
-              </FormControl>
-
+                <FormLabel>Image URL</FormLabel>
+                <Input placeholder='Image URL' value={formState.image} onChange={(e) => setFormState({type: "image", payload: e.target.value})} />
+              </FormControl> 
 
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={createNewTask}>
+              <Button colorScheme='blue' mr={3} onClick={createNewTiffin}>
                 Create
               </Button>
               <Button onClick={onClose}>Cancel</Button>

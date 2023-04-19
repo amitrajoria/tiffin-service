@@ -95,6 +95,21 @@ const addToCart = (payload) => dispatch => {
             .catch((err) => dispatch({ type: actions.CART_FAILURE, payload: err?.response?.data?.msg}))
 }
 
+
+const addTiffin = (payload, vender_id) => dispatch => {
+    dispatch({ type: actions.TIFFIN_REQUEST});
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios({
+                    method : "POST",
+                    url : `http://localhost:8080/tiffins/add/${vender_id}`,
+                    headers,
+                    data : payload
+                })
+            .then((res) => dispatch(getTiffins(vender_id)))
+            .catch((err) => dispatch({ type: actions.TIFFIN_FAILURE, payload: err?.response?.data?.msg}))
+}
+
 const placeOrder = (payload) => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
@@ -151,6 +166,7 @@ export {
     getTiffins,
     getCart,
     getOrders,
+    addTiffin,
     placeOrder,
     addPG,
     updateProfile,
