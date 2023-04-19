@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const orderSchema = new Schema ({
-    user_id : String,
+    user_id : Schema.Types.ObjectId,
     vender_id : Schema.Types.ObjectId,
     total : String,
     coupon_id : String,

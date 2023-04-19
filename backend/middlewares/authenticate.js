@@ -9,6 +9,7 @@ const authenticate = (req, res, next) => {
             res.status('401').send({msg : "Not authorized"});
         else {
             req.userId = decoded.userId;
+            req.role = decoded.role;
             next();
         }
     });

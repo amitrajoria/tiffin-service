@@ -34,6 +34,7 @@ import { login } from '../Redux/AuthReducer/action';
     //   isError : store.AuthReducer.isError ,
     //   response : store.AuthReducer.response
     // }));
+    const inputBgColor = useColorModeValue('input-light', 'input-dark');
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -116,12 +117,12 @@ import { login } from '../Redux/AuthReducer/action';
               {/* <Divider marginTop="40" /> */}
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input className={inputBgColor} type="email" value={username} onChange={(e) => setUsername(e.target.value)} />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                    <Input type={showPassword ? 'text' : 'password'}  value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Input className={inputBgColor} type={showPassword ? 'text' : 'password'}  value={password} onChange={(e) => setPassword(e.target.value)} />
                     <InputRightElement h={'full'}>
                       <Button
                         variant={'ghost'}

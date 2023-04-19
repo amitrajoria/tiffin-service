@@ -122,6 +122,20 @@ const updateProfile = (payload) => dispatch => {
             .catch((err) => dispatch({ type: actions.USER_FAILURE, payload: err?.response?.data?.msg}))
 }
 
+const updateTiffinStatus = ({id, status, vender_id}) => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    console.log(id+" "+status+" "+vender_id);
+    return axios({
+                method : "PATCH",
+                url : `http://localhost:8080/tiffins/update`,
+                headers,
+                data : {id, status}
+            })
+            .then((res) => dispatch(getTiffins(vender_id)))
+            .catch((err) => dispatch({ type: actions.TIFFIN_FAILURE, payload: err?.response?.data?.msg}))
+}
+
 const deleteCartItem = (cart_id) => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
@@ -140,6 +154,7 @@ export {
     placeOrder,
     addPG,
     updateProfile,
+    updateTiffinStatus,
     addToCart,
     deleteCartItem
 }

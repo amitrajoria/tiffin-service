@@ -7,6 +7,7 @@ import { bookOrder, deleteCartItem, getCart } from '../Redux/AppReducer/action';
 const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuantity, deleteCart }) => {
 
     const cardBgColor = useColorModeValue('white', 'gray.900');
+    const inputBgColor = useColorModeValue('input-light', 'input-dark');
     const dispatch = useDispatch();
     // const cart = useSelector((store) => store.OrderReducer.cart);
     const [bookedId, setBookedId] = useState([]);
@@ -106,7 +107,7 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuan
                         width={'30px'}
                         onClick={() => setItemQuantity((prev) => ( (prev > 1) ? prev-1 : 1))}
                         />
-                    <Input padding={'4px'} width={'30px'} height='30px' textAlign={'center'} value={itemQuantity} onChange={ignoreChange}/>
+                    <Input className={inputBgColor} padding={'4px'} width={'30px'} height='30px' textAlign={'center'} value={itemQuantity} onChange={ignoreChange}/>
                     <IconButton
                         colorScheme='blue'
                         borderRadius={'full'}

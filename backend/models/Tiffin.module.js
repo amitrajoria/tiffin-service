@@ -7,7 +7,7 @@ const tiffinSchema = new Schema ({
     price : {type : String , required : true},
     image : {type : String},
     vender_id : String,
-    status : {type : String, enum : ["active", "inactive"], default : "active"}
+    status : {type : Boolean, default : true}
 }, {
     versionKey : false,
     timestamps : true

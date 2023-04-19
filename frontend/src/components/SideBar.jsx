@@ -45,13 +45,6 @@ import { Link as RouterLink } from 'react-router-dom';
 //   name: string;
 //   icon: IconType;
 // }
-const LinkItems = [
-  { name: 'Home', icon: FiHome, href: '/' },
-  { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-  { name: 'Cart', icon: FiCompass, href: '/cart'  },
-  { name: 'Order History', icon: FiStar, href: '/orders' },
-  { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
-];
 
 export default function SideBar ({children}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -88,6 +81,37 @@ export default function SideBar ({children}) {
 // }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.AppReducer.user);
+  const [LinkItems, setLinkItems] = useState([]);
+
+  useEffect(() => {
+    if(!user)
+      dispatch(getProfile())
+
+    if(user.role === "customer") {
+      setLinkItems([
+        { name: 'Home', icon: FiHome, href: '/' },
+        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
+        { name: 'Cart', icon: FiCompass, href: '/cart'  },
+        { name: 'Order History', icon: FiStar, href: '/orders' },
+        { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
+      ])
+    }
+    else if(user.role === "vender") {
+      setLinkItems([
+        { name: 'Home', icon: FiHome, href: '/' },
+        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
+        { name: 'Menu', icon: FiCompass, href: '/menu'  },
+        { name: 'Customers', icon: FiStar, href: '/customers' },
+        { name: 'PG', icon: FiSettings, href: '/pg' },
+        { name: 'Order History', icon: FiCompass, href: '/orders' },
+      ])
+    }
+  }, [user])
+
+
   return (
     <Box
       transition="3s ease"

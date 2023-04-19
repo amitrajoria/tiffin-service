@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../Redux/AppReducer/action';
 
-const TiffinCard = ({ tiffin, vender_id, cart, bookedId }) => {
+const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatus }) => {
 
     const cardBgColor = useColorModeValue('white', 'gray.900');
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId }) => {
           overflow='hidden'
           variant='outline'
         >
-          <Badge variant='subtle' colorScheme='green' position='absolute' margin='-8px' >
+          <Badge variant='subtle' colorScheme='green' position='absolute' margin='-8px' background={'inherit'} >
             {tiffin.time}
           </Badge>
           <Image
@@ -64,9 +64,15 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId }) => {
             <CardFooter padding={'0 10px'}>
               <Stack direction={'row'} width='100%' justifyContent={'space-between'}>
                 <Text margin={'auto 0'} fontWeight='bold' fontSize={'larger'}>{tiffin.price} ₹</Text>
-                <Button variant='solid' colorScheme='blue' isDisabled={disable || bookedId.includes(tiffin._id)} onClick={() => book(tiffin._id, tiffin.price)}>
-                  {(bookedId.includes(tiffin._id)) ? "Booked" : "Book"}
-                </Button>
+                { (buttonText) ? 
+                  <Button variant='solid' colorScheme='blue' onClick={() => updateStatus(tiffin._id, !tiffin.status)}>
+                    {buttonText}
+                  </Button> 
+                  :
+                  <Button variant='solid' colorScheme='blue' isDisabled={disable || bookedId.includes(tiffin._id)} onClick={() => book(tiffin._id, tiffin.price)}>
+                    {(bookedId.includes(tiffin._id)) ? "Booked" : "Book"}
+                  </Button>
+                }
               </Stack>
             </CardFooter>
           </Stack>

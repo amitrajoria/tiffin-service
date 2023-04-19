@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
   export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
+    const inputBgColor = useColorModeValue('input-light', 'input-dark');
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -73,24 +74,24 @@ import { useDispatch, useSelector } from 'react-redux';
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <Input className={inputBgColor} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
-                    <Input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    <Input className={inputBgColor} type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                   </FormControl>
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input className={inputBgColor} type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
+                  <Input className={inputBgColor} type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}

@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardFooter, FormControl, FormLabel, Grid, GridItem, Heading, Image, Input, Select, SimpleGrid, Stack, Text, Textarea, useColorModeValue, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Box, Button, Card, CardBody, CardFooter, FormControl, FormLabel, Grid, GridItem, Heading, Image, Input, Select, SimpleGrid, Stack, Text, Textarea, useColorModeValue, useDisclosure } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import AddPG from '../models/AddPG';
@@ -11,6 +11,7 @@ const Profile = () => {
   const [addPG , showAddPg] = useState(false);
   const user = useSelector((store) => store.AppReducer.user)
   const pgs = useSelector((store) => store.AppReducer.pg)
+  const inputBgColor = useColorModeValue('input-light', 'input-dark');
   
   console.log(pgs);
   const initState = {
@@ -24,7 +25,7 @@ const Profile = () => {
   }
   const [formState, setFormState] = useState(initState);
   console.log(user);
-  const { name, email, mobile, room_no, description, address, pg } = formState;
+  const { name, email, mobile, room_no, description, address, pg, image } = formState;
   console.log(formState);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -38,7 +39,8 @@ const Profile = () => {
       room_no : (user?.room_no) ? user?.room_no : "",
       description : (user?.description) ? user?.description : "",
       address : (user?.address) ? user?.address : "",
-      pg : (user?.pg_id) ? user?.pg_id : ""
+      pg : (user?.pg_id) ? user?.pg_id : "",
+      image : (user?.image) ? user?.image : "",
     });
   }, [user])
 
@@ -97,45 +99,54 @@ const Profile = () => {
           >
             <Box p={4} display={{ md: 'flex' }} width='100%' >
               <Box flexShrink={0} margin={{base : 'auto auto 30px auto', md: '0 30px 0 0', lg: '0 30px 0 0'}}>
-                <Image
-                  width={{ base: 40, md: 40, lg : 60 }}
-                  height={{ base: 40, md: 40, lg : 60 }}
-                  borderRadius='full'
-                  margin={{base : 'auto auto 30px auto', md: '0 30px 0 0', lg: '0 30px 0 0'}}
-                  src='https://bit.ly/2jYM25F'
-                  alt='Woman paying for a purchase'
-                />
+                { 
+                (image) ? 
+                  <Image
+                    width={{ base: 40, md: 40, lg : 60 }}
+                    height={{ base: 40, md: 40, lg : 60 }}
+                    borderRadius='full'
+                    margin={{base : 'auto auto 30px auto', md: '0 30px 0 0', lg: '0 30px 0 0'}}
+                    src={image}
+                    alt='Woman paying for a purchase'
+                  /> : 
+                  <Avatar
+                    width={{ base: 40, md: 40, lg : 60 }}
+                    height={{ base: 40, md: 40, lg : 60 }}
+                    borderRadius='full'
+                    margin={{base : 'auto auto 30px auto', md: '0 30px 0 0', lg: '0 30px 0 0'}}
+                    size={'sm'}
+                  />
+                }
               </Box>
   {/* <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }} width='100%'> */}
               <SimpleGrid gap={'25px'} columns={[1, 2]} width='100%'>
                 <FormControl id="name">
                   <FormLabel>Name</FormLabel>
-                  <Input type="text" name='name' value={name} onChange={handleChange} />
+                  <Input className={inputBgColor} type="text" name='name' value={name} onChange={handleChange} />
                 </FormControl> 
                 <FormControl id="email">
                   <FormLabel>Email address</FormLabel>
-                  <Input type="email" name='email' value={email} onChange={handleChange} />
+                  <Input className={inputBgColor} type="email" name='email' value={email} onChange={handleChange} />
                 </FormControl> 
                 <FormControl id="mobile">
                   <FormLabel>Mobile</FormLabel>
-                  <Input type="text" name='mobile' value={mobile} onChange={handleChange} />
+                  <Input className={inputBgColor} type="text" name='mobile' value={mobile} onChange={handleChange} />
                 </FormControl> 
-                <FormControl id="room_no">
-                  <FormLabel>Room No</FormLabel>
-                  <Input type="text" name='room_no' value={room_no} onChange={handleChange} />
-                </FormControl>
-                {/* <FormControl id="description">
-                  <FormLabel>Description</FormLabel>
-                  <Textarea name='description' value={description} onChange={handleChange} />
-                </FormControl>  */}
-                <FormControl id="address">
-                  <FormLabel>Address</FormLabel>
-                  <Textarea name='address' value={address} onChange={handleChange} />
-                </FormControl> 
-                <FormControl id="pg">
+                {
+                  (user?.role === "customer") ? 
+                  <FormControl id="room_no">
+                    <FormLabel>Room No</FormLabel>
+                    <Input className={inputBgColor} type="text" name='room_no' value={room_no} onChange={handleChange} />
+                  </FormControl> 
+                  :
+                  <FormControl id="description">
+                    <FormLabel>Description</FormLabel>
+                    <Textarea className={inputBgColor} name='description' value={description} onChange={handleChange} />
+                  </FormControl>  
+                } 
+                {/* <FormControl id="pg">
                   <FormLabel>Select PG</FormLabel>
-                  <Select placeholder={(pg) ? pg : "Select PG"} name='select_pg' value={pg} onChange={handleChange} >
-                  {/* <option isD value='' isdisabled={true}>Select PG</option> */}
+                  <Select className={inputBgColor} placeholder={"Select PG"} name='select_pg' value={pg} onChange={handleChange} >
                     <option value='false'>Not in List</option>
                     {
                       pgs.length > 0 && pgs.map((item) => {
@@ -143,15 +154,12 @@ const Profile = () => {
                       })
                     }
                   </Select>
+                </FormControl> */}
+                <FormControl id="address">
+                  <FormLabel>Address</FormLabel>
+                  <Textarea className={inputBgColor} name='address' value={address} onChange={handleChange} />
                 </FormControl>  
-                {/* <FormControl id="addpg">
-                  {addPG && <div>
-                    <FormLabel>Add PG</FormLabel>
-                    <Input type="text" name='pg' value={pg} onChange={handleChange} />
-                  </div>
-                   }
-                  </FormControl>  */}
-                <Button mt={6} colorScheme='blue' onClick={(e) => formSubmit(e)}>Save</Button>
+                <Button mt={8} colorScheme='blue' onClick={(e) => formSubmit(e)}>Save</Button>
               </SimpleGrid>
   {/* </Box> */}
 </Box>

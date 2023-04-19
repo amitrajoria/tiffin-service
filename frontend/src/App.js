@@ -8,5 +8,5 @@ function App() {
     </div>
   );
 }
-// Order history
+
 export default App;

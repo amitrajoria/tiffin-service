@@ -17,7 +17,7 @@ const validateTiffin = (req, res, next) => {
 TiffinController.get('/:vender_id', authenticate, async (req, res) => {
     const userId = req.userId;
     const vender_id = req.params.vender_id;
-    const tiffin = await TiffinModel.find({vender_id, status : "active"});
+    const tiffin = await TiffinModel.find({vender_id});
     res.status('200').send({tiffin});
 })
 
@@ -26,6 +26,16 @@ TiffinController.post('/add', authorizeVender, validateTiffin, async (req, res) 
     const tiffin = new TiffinModel(payload);
     await tiffin.save();
     res.status("201").send({msg : 'Tiffin Added Successfully'});
+})
+
+TiffinController.patch('/update', authorizeVender, async (req, res) => {
+    const {id, status} = req.body;
+    console.log(req.body);
+    const tiffin = await TiffinModel.findOneAndUpdate({_id: id}, {status}, {new: true});
+    if(tiffin)
+        res.status("201").send({msg : 'Status Updated Successfully'});
+    else 
+        res.status("400").send({msg : 'Something went wrong'});
 })
 
 module.exports = {

@@ -133,7 +133,7 @@ const Home = () => {
       {
         showVenders === false && tiffins.length > 0 && 
         tiffins.map((tiffin) => {
-          return <TiffinCard key={tiffin._id} tiffin={tiffin} vender_id={user.vender_id} cart={cart} bookedId={bookedId} />
+          return tiffin.status && <TiffinCard key={tiffin._id} tiffin={tiffin} vender_id={user.vender_id} cart={cart} bookedId={bookedId}  buttonText={""} updateStatus={""} />
         })
       }
     </SimpleGrid>

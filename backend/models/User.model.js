@@ -11,7 +11,7 @@ const userSchema = Schema({
     role : {type : String, enum : ["customer", "vender", "admin"], default : "customer"},
     room_no : String,
     vender_id : String,
-    pg_id : String,
+    pg_id : Schema.Types.ObjectId,
     status : {type : String, enum : ["active", "inactive"], default : "active"}
 }, {
     versionKey : false,

@@ -12,6 +12,7 @@ const Cart = () => {
     const user = useSelector((store) => store.AppReducer.user);
     const [cartEmpty, setCartEmpty] = useState("");
     const cardBgColor = useColorModeValue('white', 'gray.900');
+    const inputBgColor = useColorModeValue('input-light', 'input-dark');
     // const [bookedId, setBookedId] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState("");
     const [subTotal, setSubTotal] = useState(0);
@@ -170,7 +171,7 @@ const Cart = () => {
                       {/* <Heading as='h5' size='md'> Coupon Code </Heading> */}
                       <form onSubmit={(e) => addCoupon(e)}>
                         <Flex direction={'row'}>
-                          <Input placeholder={'Enter Coupon Code'} mr='20px'></Input>
+                          <Input className={inputBgColor} placeholder={'Enter Coupon Code'} mr='20px'></Input>
                           <Button onClick={(e) => addCoupon(e)}>ADD</Button>
                         </Flex>
                         <Text visibility={'hidden'}>Coupon msg</Text>

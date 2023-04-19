@@ -19,10 +19,6 @@ code {
 
 /* Sign in form CSS */
 .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-  background-color: rgb(232, 240, 254)!important;
-}
-
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
   border-radius: 30px!important;
 }
 
@@ -40,10 +36,24 @@ code {
   line-height: 1.1375em!important;
 }
 
-.chakra-input, .chakra-textarea, .chakra-select__wrapper {
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: rgb(232, 240, 254)!important;
+}
+
+/* .chakra-input, .chakra-textarea, .chakra-select__wrapper {
   background-color: #f1f3f4!important;
 }
 
 .chakra-form-control {
   border-color: antiquewhite!important;
+} */
+
+.input-light {
+  background-color: #f1f3f4!important;
+  border-color: #f1f3f4!important;
+}
+
+.input-dark {
+  background-color: #292b34!important;
+  border-color: #292b34!important;
 }

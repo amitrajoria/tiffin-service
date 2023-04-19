@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getProfile } from '../Redux/AppReducer/action';
 
-const CustomerPrivateRoute = ({children}) => {
+const VenderPrivateRoute = ({children}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,10 +17,9 @@ const CustomerPrivateRoute = ({children}) => {
     useEffect(() => {
       if(Object.keys(user).length === 0 && isAuth)
         dispatch(getProfile())
-    }, [user])
-    
- 
-  return (user && user?.role === "customer") ? children : ''
+    }, [user])    
+
+    return (user && user?.role === "vender") ? children : ''
 }                            
 
-export default CustomerPrivateRoute
+export default VenderPrivateRoute
