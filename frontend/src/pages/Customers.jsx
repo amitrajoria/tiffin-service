@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCustomers, getProfile } from '../Redux/AppReducer/action';
@@ -6,6 +6,7 @@ import { getCustomers, getProfile } from '../Redux/AppReducer/action';
 const Customers = () => {
 
     const dispatch = useDispatch();
+    const tableBgColor = useColorModeValue('white', '#292b34');
     const [customersAvailable, setCustomersAvailable] = useState(null);
     const [Customers, setCustomers] = useState([]);
     const user = useSelector((store) => store.AppReducer.user);
@@ -71,7 +72,7 @@ const Customers = () => {
         
         {
         customersAvailable && Customers?.length > 0 && 
-        <TableContainer background={'white'} rounded={'lg'}>
+        <TableContainer background={tableBgColor} rounded={'lg'}>
             <Table variant='simple'>
                 <TableCaption>Customers with registered PG</TableCaption>
                 <Thead>

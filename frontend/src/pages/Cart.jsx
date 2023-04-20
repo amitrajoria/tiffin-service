@@ -11,7 +11,8 @@ const Cart = () => {
     const cart = useSelector((store) => store.OrderReducer.cart);
     const user = useSelector((store) => store.AppReducer.user);
     const [cartEmpty, setCartEmpty] = useState("");
-    const cardBgColor = useColorModeValue('white', 'gray.900');
+    const cardBgColor = useColorModeValue('white', '#292b34');
+    const cardSubTotalBgColor = useColorModeValue('white', 'gray.900');
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
     // const [bookedId, setBookedId] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState("");
@@ -161,6 +162,7 @@ const Cart = () => {
                   <Card
                     padding={4}
                     // mt={6}
+                    background={cardSubTotalBgColor}
                     borderRadius={'10px'}
                     direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'

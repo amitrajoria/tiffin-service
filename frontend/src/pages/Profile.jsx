@@ -134,27 +134,30 @@ const Profile = () => {
                 </FormControl> 
                 {
                   (user?.role === "customer") ? 
-                  <FormControl id="room_no">
-                    <FormLabel>Room No</FormLabel>
-                    <Input className={inputBgColor} type="text" name='room_no' value={room_no} onChange={handleChange} />
-                  </FormControl> 
+                  <>
+                    <FormControl id="room_no">
+                      <FormLabel>Room No</FormLabel>
+                      <Input className={inputBgColor} type="text" name='room_no' value={room_no} onChange={handleChange} />
+                    </FormControl> 
+                    <FormControl id="pg">
+                    <FormLabel>Select PG</FormLabel>
+                      <Select className={inputBgColor} placeholder={"Select PG"} name='select_pg' value={pg} onChange={handleChange} >
+                      <option value='false'>Not in List</option>
+                      {
+                        pgs.length > 0 && pgs.map((item) => {
+                          return <option key={item._id} value={item._id}>{item.name}</option>
+                        })
+                      }
+                      </Select>
+                    </FormControl>
+                  </>
                   :
                   <FormControl id="description">
                     <FormLabel>Description</FormLabel>
                     <Textarea className={inputBgColor} name='description' value={description} onChange={handleChange} />
                   </FormControl>  
                 } 
-                {/* <FormControl id="pg">
-                  <FormLabel>Select PG</FormLabel>
-                  <Select className={inputBgColor} placeholder={"Select PG"} name='select_pg' value={pg} onChange={handleChange} >
-                    <option value='false'>Not in List</option>
-                    {
-                      pgs.length > 0 && pgs.map((item) => {
-                        return <option key={item._id} value={item._id}>{item.name}</option>
-                      })
-                    }
-                  </Select>
-                </FormControl> */}
+                
                 <FormControl id="address">
                   <FormLabel>Address</FormLabel>
                   <Textarea className={inputBgColor} name='address' value={address} onChange={handleChange} />

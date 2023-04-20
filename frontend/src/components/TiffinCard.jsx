@@ -5,7 +5,7 @@ import { addToCart } from '../Redux/AppReducer/action';
 
 const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatus }) => {
 
-    const cardBgColor = useColorModeValue('white', 'gray.900');
+    const cardBgColor = useColorModeValue('white', '#292b34');
     const dispatch = useDispatch();
     const [disable, setDisable] = useState(false);
 

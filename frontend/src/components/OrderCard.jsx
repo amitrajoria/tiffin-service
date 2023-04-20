@@ -6,7 +6,7 @@ import { bookOrder, deleteCartItem, getCart } from '../Redux/AppReducer/action';
 
 const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuantity, deleteCart }) => {
 
-    const cardBgColor = useColorModeValue('white', 'gray.900');
+    const cardBgColor = useColorModeValue('white', '#292b34');
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
     const dispatch = useDispatch();
     // const cart = useSelector((store) => store.OrderReducer.cart);

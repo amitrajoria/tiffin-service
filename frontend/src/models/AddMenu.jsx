@@ -48,9 +48,6 @@ function AddMenu({isOpen, onClose, vender_id}) {
 
     const [formState, setFormState] = useReducer(reducer, initState);
     const dispatch = useDispatch();
-    const nevigate = useNavigate();
-    const location = useLocation();
-    const { onOpen } = useDisclosure()
   
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
@@ -73,14 +70,7 @@ function AddMenu({isOpen, onClose, vender_id}) {
           onClose();
       });
     }
-    // Veg, Daal fry, Rice, 2 Chapaties, Rayta, Salad
-    // useEffect(() => {
-    //   if(response)
-    //     alert(response);
-    //   if(!isError) {
-    //     onClose();
-    //   }
-    // }, [isError, response])
+
 
     return (
       <>
