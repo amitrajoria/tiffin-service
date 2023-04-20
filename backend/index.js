@@ -8,6 +8,7 @@ const { PGController } = require("./routes/PG.route");
 const { TiffinController } = require("./routes/Tiffin.route");
 const { CartController } = require("./routes/Cart.route");
 const { OrderController } = require("./routes/Order.route");
+const { CustomerController } = require("./routes/Customers.route");
 const app = express();
 
 app.use(express.json());
@@ -30,6 +31,8 @@ app.use("/tiffins", TiffinController);
 app.use("/cart", CartController);
 
 app.use("/orders", OrderController);
+
+app.use("/customers", CustomerController);
 
 app.listen('8080', async (req, res) => {
     console.log("Server listening on 8080");

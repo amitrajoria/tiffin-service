@@ -17,6 +17,8 @@ import VenderOrderHistory from '../pages/VenderOrderHistory'
 import AuthenticateRoute from './AuthenticateRoute'
 import VenderPrivateRoute from './VenderPrivateRoute'
 import Menu from '../pages/Menu'
+import PGs from '../pages/PGs'
+import Customers from '../pages/Customers'
 
 
 const AllRoutes = () => {
@@ -44,6 +46,8 @@ const AllRoutes = () => {
             <Route path='/register' element={<Register />}></Route>
             <Route path='/profile' element={<AuthenticateRoute><SideBar><Profile /></SideBar></AuthenticateRoute>}></Route>
             <Route path='/menu' element={<VenderPrivateRoute><SideBar><Menu /></SideBar></VenderPrivateRoute>}></Route>
+            <Route path='/pg' element={<VenderPrivateRoute><SideBar><PGs /></SideBar></VenderPrivateRoute>}></Route>
+            <Route path='/customers' element={<VenderPrivateRoute><SideBar><Customers /></SideBar></VenderPrivateRoute>}></Route>
             <Route path='/cart' element={<CustomerPrivateRoute><SideBar><Cart /></SideBar></CustomerPrivateRoute>}></Route>
             <Route path='/orders' element={
               <AuthenticateRoute>

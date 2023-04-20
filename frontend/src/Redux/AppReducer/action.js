@@ -65,6 +65,26 @@ const getOrders = () => dispatch => {
             .catch((err) => dispatch({ type: actions.ORDER_FAILURE, payload: err?.response?.data?.msg}))
 }
 
+const getCustomers = () => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios.get('http://localhost:8080/customers', { headers })     
+            // .then((res) => console.log(res))
+            // .catch((err) => console.log(err))
+            .then((res) => {return { type: "SUCCESS", payload: res?.data?.customers}})
+            .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
+}
+
+const getPGRegistered = () => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios.get('http://localhost:8080/pg/registered', { headers })     
+            // .then((res) => console.log(res))
+            // .catch((err) => console.log(err))
+            .then((res) => {return { type: "SUCCESS", payload: res?.data?.pgs}})
+            .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
+}
+
 const addPG = (payload) => dispatch => {
     dispatch({ type: actions.PG_REQUEST});
     const token = getLoginData('loginToken');
@@ -166,6 +186,8 @@ export {
     getTiffins,
     getCart,
     getOrders,
+    getCustomers,
+    getPGRegistered,
     addTiffin,
     placeOrder,
     addPG,

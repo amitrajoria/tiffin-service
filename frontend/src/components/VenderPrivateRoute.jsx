@@ -10,9 +10,11 @@ const VenderPrivateRoute = ({children}) => {
     const isAuth = useSelector((store) => store.AuthReducer.isAuth);
     const user = useSelector((store) => store.AppReducer.user);
 
-    // console.log(user);
-    if(!isAuth)
-        navigate('/login', {replace : true});
+    useEffect(() => {
+        if(!isAuth)
+            navigate('/login', {replace : true});
+    }, [isAuth])
+    
 
     useEffect(() => {
       if(Object.keys(user).length === 0 && isAuth)

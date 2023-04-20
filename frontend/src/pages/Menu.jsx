@@ -1,14 +1,16 @@
-import { Button, Flex, Heading, SimpleGrid, Skeleton, Stack, useColorModeValue } from '@chakra-ui/react';
+import { Button, Flex, Heading, SimpleGrid, Skeleton, Stack, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TiffinCard from '../components/TiffinCard';
 import VenderCard from '../components/VenderCard';
+import AddMenu from '../models/AddMenu';
 import { getCart, getProfile, getTiffins, getVenders, updateProfile, updateTiffinStatus } from '../Redux/AppReducer/action';
 
 const Menu = () => {
 
   const dispatch = useDispatch();
+  const {isOpen, onOpen, onClose} = useDisclosure();
   const {user, tiffins} = useSelector((store) => (
     {
       user : store.AppReducer.user,
@@ -26,19 +28,6 @@ const Menu = () => {
     if(!user)
         dispatch(getProfile())
   }, [user])
-
-  // useEffect(() => {
-  //   console.log("Working USE EFFECT");
-  //   setNonActiveTiffins(null);
-  //   setActiveTiffins(null);
-  //     for(let i=0; i<tiffins.length; i++) {
-  //       const tiffin = tiffins[i];
-  //       if(tiffin.status && ActiveTiffins === null)
-  //         setActiveTiffins(true)
-  //       else if(!tiffin.status && NonActiveTiffins === null)
-  //         setNonActiveTiffins(true)
-  //     }
-  // }, [tiffins])
 
   useEffect(() => {    
     if(tiffins.length === 0) {
@@ -60,8 +49,9 @@ const Menu = () => {
 
     if(tiffins.length > 0) {
       console.log("WORKING --- 222");
-      setNonActiveTiffins(null);
-      setActiveTiffins(null);
+      setTiffinAvailable(true);
+      setActiveTiffins(0);
+      setNonActiveTiffins(0);
       for(let i=0; i<tiffins.length; i++) {
         const tiffin = tiffins[i];
         if(tiffin.status)
@@ -93,8 +83,6 @@ const Menu = () => {
     })
   }
 
-  console.log("ACTIVE TIFFIN ", ActiveTiffins);
-  console.log("NOT ACTIVE TIFFIN ", NonActiveTiffins);
   
   return (
     <> 
@@ -120,10 +108,14 @@ const Menu = () => {
     </Stack>
     }
 
+    
+    <AddMenu isOpen={isOpen} onClose={onClose} vender_id={user._id}/> 
+    
+    
     {tiffinAvailable !== null && 
     <Flex justify={'space-between'}>
       <Heading as='h3' size='lg' margin={'10px 0'}>{tiffinHeading}</Heading>
-      <Button variant='outline' colorScheme='blue'>
+      <Button variant='outline' colorScheme='blue' onClick={onOpen}>
         Add Menu
       </Button>
     </Flex>
