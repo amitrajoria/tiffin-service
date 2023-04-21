@@ -33,6 +33,7 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
   return (
     <Card
           bg={cardBgColor}
+          borderColor={cardBgColor}
           padding={2}
           borderRadius={'10px'}
           direction={{ base: 'column', sm: 'row' }}

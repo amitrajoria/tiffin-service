@@ -8,6 +8,7 @@ const VenderCard = ({ vender, subscribe, selectedVender }) => {
   return (
     <Card
             bg={cardBgColor}
+            borderColor={cardBgColor}
             padding={4}
             borderRadius={'10px'}
             direction={{ base: 'column', sm: 'row' }}

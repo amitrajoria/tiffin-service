@@ -39,14 +39,14 @@ const getVenderOrders = async (vender_id, req, res) => {
         foreignField: "order_id",
         as: "tiffin_id"
     }} 
-    , { $unwind: "$tiffin_id" } 
+    // , { $unwind: "$tiffin_id" } 
     , { $lookup: {
         from: "tiffins",
         localField: "tiffin_id.tiffin_id",
         foreignField: "_id",
         as: "tiffins"
     }} 
-    , { $unwind: "$tiffins" } 
+    // , { $unwind: "$tiffins" } 
     , { $lookup: {
         from: "users",
         localField: "user_id",
@@ -75,6 +75,16 @@ OrderController.get('/', authenticate, async (req, res) => {
         getVenderOrders(user_id, req, res);
     
 })
+
+// OrderController.get('/', authenticate, async (req, res) => {
+//     const user_id = req.userId;
+//     const role = req.role;
+//     if(role === "cutomer")
+//         getCustomerOrders(user_id, req, res);
+//     else 
+//         getVenderOrders(user_id, req, res);
+    
+// })
 
 OrderController.post('/add', authenticate, async (req, res) => {
     const user_id = req.userId;

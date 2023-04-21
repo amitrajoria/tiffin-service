@@ -54,6 +54,7 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuan
   return (
     <Card
           bg={cardBgColor}
+          borderColor={cardBgColor}
           padding={2}
           borderRadius={'10px'}
           direction={{ base: 'column', sm: 'row' }}
