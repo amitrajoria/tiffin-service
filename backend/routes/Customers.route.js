@@ -8,6 +8,7 @@ const CustomerController = express.Router();
 CustomerController.get("/", authorizeVender, async (req, res) => {
     const vender_id = req.userId;
     const customers = await UserModel.aggregate([{$match : {vender_id}}
+        , {$sort : {createdAt : -1} }
         , {$lookup: {
             from: "pgs",
             localField: "pg_id",

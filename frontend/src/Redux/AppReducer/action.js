@@ -54,15 +54,30 @@ const getCart = () => async dispatch => {
             .catch((err) => dispatch({ type: actions.CART_FAILURE, payload: err?.response?.data?.msg}))
 }
 
-const getOrders = () => dispatch => {
+const getOrders = (params) => dispatch => {
     dispatch({ type: actions.ORDER_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return axios.get('http://localhost:8080/orders', { headers })     
-            // .then((res) => console.log(res))
-            // .catch((err) => console.log(err))
+    console.log(`http://localhost:8080/orders?${params}`);
+    return axios.get(`http://localhost:8080/orders?${params}`, { headers })    
             .then((res) => dispatch({ type: actions.ORDER_SUCCESS, payload: res?.data?.orders}))
             .catch((err) => dispatch({ type: actions.ORDER_FAILURE, payload: err?.response?.data?.msg}))
+}
+
+const getOrdersHistory = (params) => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios.get(`http://localhost:8080/orders?${params}`, { headers }) 
+            .then((res) => {return { type: "SUCCESS", payload: res?.data?.orders}})
+            .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
+}
+
+const getOrdersAnalytics = (params) => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios.get(`http://localhost:8080/orders/analytics?${params}`, { headers }) 
+            .then((res) => {return { type: "SUCCESS", payload: res?.data?.analytics}})
+            .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
 }
 
 const getCustomers = () => dispatch => {
@@ -186,6 +201,8 @@ export {
     getTiffins,
     getCart,
     getOrders,
+    getOrdersHistory,
+    getOrdersAnalytics,
     getCustomers,
     getPGRegistered,
     addTiffin,

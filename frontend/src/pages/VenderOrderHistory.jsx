@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '../Redux/AppReducer/action';
+import { getOrdersHistory } from '../Redux/AppReducer/action';
 
 
 const VenderOrderHistory = () => {
@@ -10,15 +10,16 @@ const VenderOrderHistory = () => {
   const tableBgColor = useColorModeValue('white', '#292b34');
   const tableBorderColor = useColorModeValue('2px solid lightgrey', '2px solid darkslategray');
   const [ordersAvailable, setOrdersAvailable] = useState(null);
-  const orders = useSelector((store) => store.OrderReducer.orders); 
+  const [orders, setOrders] = useState([]);
   
     useEffect(() => {
       if(orders.length == 0) {
-        dispatch(getOrders())
+        dispatch(getOrdersHistory())
         .then((res) => {
           console.log(res);
-            if(res.type == "ORDER_SUCCESS") {
-              if(res?.payload?.length > 0)
+            if(res.type == "SUCCESS") {
+              setOrders(res?.payload);
+              if(res?.payload?.length > 0) 
                 setOrdersAvailable(true);
               else 
                 setOrdersAvailable(false);
@@ -40,7 +41,7 @@ const VenderOrderHistory = () => {
   return (
     <>
         <Flex justify={'space-between'} margin={'20px 0'}>
-            <Heading as='h3' size='lg'>{ordersAvailable && "Order History"}</Heading>
+            <Heading as='h3' size='lg'>{ordersAvailable !== null && ((ordersAvailable) ? "Order History" : "You haven't got any order yet")}</Heading>
         </Flex>
         {
             ordersAvailable === null && 
@@ -68,7 +69,7 @@ const VenderOrderHistory = () => {
         ordersAvailable && orders?.length > 0 && 
         <TableContainer background={tableBgColor} rounded={'lg'}>
             <Table variant='simple'>
-                <TableCaption>Total Orders</TableCaption>
+                <TableCaption>Total Orders with quantity of different types of Tiffin</TableCaption>
                 <Thead>
                 <Tr>
                     <Th isNumeric>#</Th>
