@@ -88,21 +88,14 @@ OrderController.get('/analytics', authenticate, async (req, res) => {
         matchQuery["added"] = req.query.date;
     console.log(matchQuery);
     const user_id = req.userId;
-    const analytics = await OrderModel.aggregate([{$match : {vender_id : new mongoose.Types.ObjectId(user_id)}}
+    const totalOrders = await OrderModel.aggregate([{$match : {vender_id : new mongoose.Types.ObjectId(user_id)}}
         , {$match : matchQuery} 
         , {$sort : {createdAt : -1} }
-        , {$lookup: {
-            from: "order_relations",
-            localField: "_id",
-            foreignField: "order_id",
-            as: "tiffin_id"
-        }} 
-        , { $lookup: {
-            from: "tiffins",
-            localField: "tiffin_id.tiffin_id",
-            foreignField: "_id",
-            as: "tiffins"
-        }} 
+        , {$group: {_id : "$vender_id",  sum : {$sum:1},  } } 
+    ]);
+    const totalOrdersSummary = await OrderModel.aggregate([{$match : {vender_id : new mongoose.Types.ObjectId(user_id)}}
+        , {$match : matchQuery} 
+        , {$sort : {createdAt : -1} }
         , { $lookup: {
             from: "users",
             localField: "user_id",
@@ -117,9 +110,9 @@ OrderController.get('/analytics', authenticate, async (req, res) => {
             as: "pg"
         }} 
         , { $unwind: "$pg" } 
-        , {$group: {_id : "$pg.name",  count : {$sum:1},  data: { $addToSet: "$$ROOT" } } } 
+        , {$group: {_id : "$pg.name",  count : {$sum:1},  } } 
         ]);
-        res.status('200').send({analytics});
+        res.status('200').send({analytics : {totalOrders, totalOrdersSummary}});
 })
 
 OrderController.post('/add', authenticate, async (req, res) => {

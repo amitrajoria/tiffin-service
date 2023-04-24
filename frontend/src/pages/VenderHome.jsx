@@ -13,7 +13,6 @@ const VenderHome = () => {
     const [analytics, setAnalytics] = useState([]);
     const orders = useSelector((store) => store.OrderReducer.orders); 
     const [totalOrders, setTotalOrders] = useState(0);
-    let count = 0;
   
     useEffect(() => {
       if(orders.length == 0) {
@@ -41,9 +40,12 @@ const VenderHome = () => {
         .then((res) => {
           console.log(res);
             if(res.type == "SUCCESS") {
-              (res?.payload !== undefined) ? setAnalytics(res?.payload) : setAnalytics([]);
-              if(res?.payload?.length > 0)
+              if(res?.payload) {
                 setIsAnalytics(true);
+                setAnalytics(res?.payload?.totalOrdersSummary)
+                console.log("SUM ",res?.payload?.totalOrders[0]);
+                setTotalOrders(res?.payload?.totalOrders[0]?.sum)
+              }
               else 
                 setIsAnalytics(false);
             }
@@ -61,27 +63,23 @@ const VenderHome = () => {
     console.log(isAnalytics);
     console.log(analytics);
     
+    const makeDate = (addedDate) => {
+      const date = new Date(addedDate);
+      const options = {
+        // weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      };
 
-    // useEffect(() => {
-    //   if(orders) {
-    //     const addedDate = orders[0]?.added;
-    //     const d = new Date(addedDate);
-    //     const options = {
-    //       weekday: 'short',
-    //       year: 'numeric',
-    //       month: 'short',
-    //       day: 'numeric',
-    //     };
+      return date.toLocaleString('en-IN', options);
+    }
 
-    //     const val = d.toLocaleString('en-IN', options);
-    //     console.log(val);
-    //     console.log("ADDED DATE ", addedDate);
-    //   }
-    // }, [orders])
+
 
   return (
     <>            
-      <Heading as='h3' size='lg' margin={'20px 0'}>{ordersAvailable !== null && ((ordersAvailable) ? "Order's Analytics" : "You haven't got any order today")}</Heading>
+      <Heading as='h3' size='lg' margin={'20px 0'}>{ordersAvailable !== null && ((ordersAvailable) ? "Orders Analytics" : "You haven't got any order today")}</Heading>
       {
             (ordersAvailable === null || isAnalytics === null) && 
             <Stack padding={4} spacing={1}>
@@ -105,6 +103,9 @@ const VenderHome = () => {
         }
       {/* <Card> */}
       {isAnalytics && analytics.length > 0 && <Box bg={tableBgColor} my={8}>
+        
+      {isAnalytics && analytics.length > 0 && <Text textAlign={"center"} fontSize='larger' fontWeight={'bold'} py={4}>{totalOrders} Order from {analytics.length} PGs</Text>}
+          
           <Flex>
           <Spacer />
           <Box p='4' minWidth={'30%'}>
@@ -135,7 +136,6 @@ const VenderHome = () => {
             {
               isAnalytics && analytics.length > 0 &&
               analytics.map((analytic, index) => {
-                count += analytic.count;
                 return <ListItem key={index+"-"+analytic.count}>{analytic.count}</ListItem>
               })
             }
@@ -143,9 +143,6 @@ const VenderHome = () => {
           </Box>
           <Spacer />
           </Flex>
-          
-          {isAnalytics && analytics.length > 0 && <Text textAlign={"center"} fontSize='larger' fontWeight={'bold'} py={4}>{count} Order from {analytics.length} PGs</Text>}
-          
         </Box>
         }
       {/* </Card>   */}
@@ -157,6 +154,7 @@ const VenderHome = () => {
                 <Thead>
                 <Tr>
                     <Th isNumeric>#</Th>
+                    <Th>Date</Th>
                     <Th>Name</Th>
                     <Th>Mobile</Th>
                     <Th>Room No.</Th>
@@ -185,6 +183,7 @@ const VenderHome = () => {
                                 {(loop === 1) ? 
                                 <>
                                   <Td rowSpan={rowspan}>{index+1}</Td>
+                                  <Td rowSpan={rowspan}>{makeDate(order?.added)}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.name}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.mobile}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.room_no}</Td>

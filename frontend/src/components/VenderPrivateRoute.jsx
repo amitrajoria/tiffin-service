@@ -20,7 +20,7 @@ const VenderPrivateRoute = ({children}) => {
       if(Object.keys(user).length === 0 && isAuth)
         dispatch(getProfile())
     }, [user])    
-
+console.log("VENDER PRIVATE USER ROLE ",user.role);
     return (user && user?.role === "vender") ? children : ''
 }                            
 

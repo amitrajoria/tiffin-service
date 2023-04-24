@@ -17,7 +17,7 @@ const validateTiffin = (req, res, next) => {
 TiffinController.get('/:vender_id', authenticate, async (req, res) => {
     const userId = req.userId;
     const vender_id = req.params.vender_id;
-    const tiffin = await TiffinModel.find({vender_id});
+    const tiffin = await TiffinModel.find({vender_id}).sort( { createdAt : -1 } );
     res.status('200').send({tiffin});
 })
 
