@@ -13,7 +13,7 @@ const PGs = () => {
     useEffect(() => {
         dispatch(getPGRegistered())
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             if(res.type === "SUCCESS") {
                 if(res?.payload?.length > 0) {
                     setPGAvailable(true);
@@ -30,7 +30,7 @@ const PGs = () => {
     }, [PGs.length])
 
     console.log(PGs);
-    console.log(PGAvailable);
+    // console.log(PGAvailable);
 
   return (
     <>

@@ -23,7 +23,7 @@ const Cart = () => {
     const [payment, setPayment] = useState('UPI');
     const [paymentDisable, setPaymentDisable] = useState(false);
 
-    console.log("CART ", cart);
+    // console.log("CART ", cart);
     useEffect(() => {
       setTotal(subTotal+delivery-coupon);
       // if(coupon != '8765678')
@@ -37,10 +37,10 @@ const Cart = () => {
 
     useEffect(() => {
       if(cart.length == 0) {
-        console.log("USER VENDER ID ", user?.vender_id);
+        // console.log("USER VENDER ID ", user?.vender_id);
         dispatch(getCart())
         .then((res) => {
-          console.log(res);
+          // console.log(res);
             if(res.type == "CART_SUCCESS") {
               if(res?.payload?.length > 0)
                 setCartEmpty(false);
@@ -66,10 +66,10 @@ const Cart = () => {
 
     }, [cart.length])
 
-    console.log("subTotal ", subTotal);
-    console.log("QUAN ", orderQuantity);
-    console.log("CARTEMPTY ", cartEmpty);
-    console.log("USER ", user.vender_id);
+    // console.log("subTotal ", subTotal);
+    // console.log("QUAN ", orderQuantity);
+    // console.log("CARTEMPTY ", cartEmpty);
+    // console.log("USER ", user.vender_id);
     
 
     const setQuantity = (curQuantity, tiffin_id, price) => {

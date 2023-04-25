@@ -2,6 +2,7 @@ import { Box, Button, Card, Center, Flex, Heading, List, ListItem, Skeleton, Spa
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders, getOrdersAnalytics } from '../Redux/AppReducer/action';
+import { makeDate } from '../utils/ConvertDate';
 
 const VenderHome = () => {
 
@@ -18,7 +19,7 @@ const VenderHome = () => {
       if(orders.length == 0) {
         dispatch(getOrders(`date=${new Date().toLocaleDateString()}`))
         .then((res) => {
-          console.log(res);
+          // console.log(res);
             if(res.type == "ORDER_SUCCESS") {
               if(res?.payload?.length > 0)
                 setOrdersAvailable(true);
@@ -38,12 +39,12 @@ const VenderHome = () => {
       if(analytics.length == 0) {
         dispatch(getOrdersAnalytics(`date=${new Date().toLocaleDateString()}`))
         .then((res) => {
-          console.log(res);
+          // console.log(res);
             if(res.type == "SUCCESS") {
               if(res?.payload) {
                 setIsAnalytics(true);
                 setAnalytics(res?.payload?.totalOrdersSummary)
-                console.log("SUM ",res?.payload?.totalOrders[0]);
+                // console.log("SUM ",res?.payload?.totalOrders[0]);
                 setTotalOrders(res?.payload?.totalOrders[0]?.sum)
               }
               else 
@@ -58,22 +59,10 @@ const VenderHome = () => {
     }, [analytics.length])
   
   
-    console.log(ordersAvailable);
-    console.log(orders);
-    console.log(isAnalytics);
-    console.log(analytics);
-    
-    const makeDate = (addedDate) => {
-      const date = new Date(addedDate);
-      const options = {
-        // weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      };
-
-      return date.toLocaleString('en-IN', options);
-    }
+    // console.log(ordersAvailable);
+    // console.log(orders);
+    // console.log(isAnalytics);
+    // console.log(analytics);
 
 
 

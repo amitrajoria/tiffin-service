@@ -31,7 +31,7 @@ const Menu = () => {
 
   useEffect(() => {    
     if(tiffins.length === 0) {
-      console.log(user);
+      // console.log(user);
       dispatch(getTiffins(user?._id))
       .then((res) => {
         if(res?.type === "TIFFIN_SUCCESS") {
@@ -48,7 +48,7 @@ const Menu = () => {
     }
 
     if(tiffins.length > 0) {
-      console.log("WORKING --- 222");
+      // console.log("WORKING --- 222");
       setTiffinAvailable(true);
       setActiveTiffins(0);
       setNonActiveTiffins(0);
@@ -63,11 +63,11 @@ const Menu = () => {
 
 }, [tiffins.length, user?.vender_id])
 
-  console.log(tiffins);
+  // console.log(tiffins);
 
   const updateStatus = (id, status) => {
-    console.log(user);
-    console.log(id+" "+status+" "+user?._id);
+    // console.log(user);
+    // console.log(id+" "+status+" "+user?._id);
     dispatch(updateTiffinStatus({id, status, vender_id: user?._id}))
     .then((res) => { 
       if(res?.type === "TIFFIN_SUCCESS") {

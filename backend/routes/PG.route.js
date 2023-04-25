@@ -14,7 +14,6 @@ PGController.get('/', authenticate, async (req, res) => {
 PGController.get('/registered', authorizeVender, async (req, res) => {
     const vender_id = req.userId;
     const pgs = await UserModel.aggregate([{$match : {vender_id}}
-        , {$sort : {name : 1} }
         , {$lookup: {
             from: "pgs",
             localField: "pg_id",
@@ -22,8 +21,10 @@ PGController.get('/registered', authorizeVender, async (req, res) => {
             as: "pg"
         }} 
         , { $unwind: "$pg" } 
+        , {$sort : {"pg.name" : 1} }
         , {$group: {_id : "$pg._id",  count : {$sum:1}, pg: { $addToSet: "$pg" } } }   
     ]) 
+    console.log(pgs);
     res.status("200").send({pgs});
 });
 

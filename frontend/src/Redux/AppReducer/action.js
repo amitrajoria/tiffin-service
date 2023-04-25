@@ -31,7 +31,7 @@ const getPGs = () => dispatch => {
 const getTiffins = (venderId) => async dispatch => {
     if(!venderId)
         return ;
-    console.log(" ACTION GET TIFFIN ", venderId);
+    // console.log(" ACTION GET TIFFIN ", venderId);
     dispatch({ type: actions.TIFFIN_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
@@ -43,7 +43,7 @@ const getTiffins = (venderId) => async dispatch => {
 const getCart = () => async dispatch => {
     const user = await dispatch(getProfile());
     const venderId = user?.payload?.vender_id;
-    console.log("ACTION GET CART VENDER ID ", venderId);
+    // console.log("ACTION GET CART VENDER ID ", venderId);
     dispatch({ type: actions.CART_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
@@ -58,7 +58,7 @@ const getOrders = (params) => dispatch => {
     dispatch({ type: actions.ORDER_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(`http://localhost:8080/orders?${params}`);
+    // console.log(`http://localhost:8080/orders?${params}`);
     return axios.get(`http://localhost:8080/orders?${params}`, { headers })    
             .then((res) => dispatch({ type: actions.ORDER_SUCCESS, payload: res?.data?.orders}))
             .catch((err) => dispatch({ type: actions.ORDER_FAILURE, payload: err?.response?.data?.msg}))
@@ -115,11 +115,11 @@ const addPG = (payload) => dispatch => {
 }
 
 const addToCart = (payload) => dispatch => {
-    console.log("BOOK ORDER");
+    // console.log("BOOK ORDER");
     dispatch({ type: actions.CART_REQUEST });
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(payload);
+    // console.log(payload);
     return axios({
                     method : "POST",
                     url : `http://localhost:8080/cart/add`,
@@ -148,7 +148,7 @@ const addTiffin = (payload, vender_id) => dispatch => {
 const placeOrder = (payload) => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(payload);
+    // console.log(payload);
     return axios({
                 method : "POST",
                 url : `http://localhost:8080/orders/add`,
@@ -175,7 +175,7 @@ const updateProfile = (payload) => dispatch => {
 const updateTiffinStatus = ({id, status, vender_id}) => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(id+" "+status+" "+vender_id);
+    // console.log(id+" "+status+" "+vender_id);
     return axios({
                 method : "PATCH",
                 url : `http://localhost:8080/tiffins/update`,

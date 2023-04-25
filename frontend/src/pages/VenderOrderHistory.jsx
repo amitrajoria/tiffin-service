@@ -21,7 +21,7 @@ const VenderOrderHistory = () => {
       if(orders.length == 0) {
         dispatch(getOrdersHistory())
         .then((res) => {
-          console.log(res);
+          // console.log(res);
             if(res.type == "SUCCESS") {
               setOrders(res?.payload);
               if(res?.payload?.length > 0) 
@@ -42,7 +42,7 @@ const VenderOrderHistory = () => {
       if(analytics.length == 0) {
         dispatch(getOrdersAnalytics())
         .then((res) => {
-          console.log(res);
+          // console.log(res);
             if(res.type == "SUCCESS") {
               if(res?.payload) {
                 setIsAnalytics(true);

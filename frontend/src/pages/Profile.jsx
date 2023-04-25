@@ -13,7 +13,7 @@ const Profile = () => {
   const pgs = useSelector((store) => store.AppReducer.pg)
   const inputBgColor = useColorModeValue('input-light', 'input-dark');
   
-  console.log(pgs);
+  // console.log(pgs);
   const initState = {
     name : "",
     email : "",
@@ -24,9 +24,9 @@ const Profile = () => {
     pg_id : ""
   }
   const [formState, setFormState] = useState(initState);
-  console.log(user);
+  // console.log(user);
   const { name, email, mobile, room_no, description, address, pg, image } = formState;
-  console.log(formState);
+  // console.log(formState);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
 

@@ -75,7 +75,7 @@ const getVenderOrders = async (vender_id, req, res) => {
 OrderController.get('/', authenticate, async (req, res) => {
     const user_id = req.userId;
     const role = req.role;
-    if(role === "cutomer")
+    if(role === "customer")
         getCustomerOrders(user_id, req, res);
     else 
         getVenderOrders(user_id, req, res);

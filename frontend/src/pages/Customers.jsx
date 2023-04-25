@@ -33,7 +33,7 @@ const Customers = () => {
         })
     }, [Customers.length])
 
-    console.log(Customers);
+    // console.log(Customers);
 
     const copyLink = (e) => {
         navigator.clipboard.writeText(`http://localhost:3000/registered/?vender=${user._id}`);

@@ -54,8 +54,8 @@ function AddMenu({isOpen, onClose, vender_id}) {
 
 
     const createNewTiffin = () => {
-      console.log(formState);
-      console.log(vender_id);
+      // console.log(formState);
+      // console.log(vender_id);
       const {title, description, time, price, image} = formState;
       if(!title?.trim() || !description?.trim() || !time?.trim() || !price?.trim() || !image?.trim() ) {
         alert("All form fields are Reuired ");

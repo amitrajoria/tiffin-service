@@ -10,7 +10,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 const OrderHistory = () => {
 
   const dispatch = useDispatch();
-  const [ordersAvailable, setOrdersAvailable] = useState("");
+  const [ordersAvailable, setOrdersAvailable] = useState(null);
   const orders = useSelector((store) => store.OrderReducer.orders); 
   const cardBorderColor = useColorModeValue('antiquewhite', 'gray.700');
 
@@ -18,7 +18,7 @@ const OrderHistory = () => {
     if(orders.length == 0) {
       dispatch(getOrders())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
           if(res.type == "ORDER_SUCCESS") {
             if(res?.payload?.length > 0)
               setOrdersAvailable(true);
@@ -36,12 +36,12 @@ const OrderHistory = () => {
   }, [orders.length])
 
 
-  console.log(orders);
-  console.log(ordersAvailable);
+  // console.log(orders);
+  // console.log(ordersAvailable);
 
   return (
     <>
-      <Heading as='h3' size='lg' margin={'10px 0'}>{ordersAvailable ? "Order History" : "You haven't ordered anything yet"}</Heading>
+      <Heading as='h3' size='lg' margin={'10px 0'}>{(ordersAvailable !== null && ((ordersAvailable) ? "Order History" : "You haven't ordered anything yet"))}</Heading>
       <SimpleGrid columns={[1, 2, 2]} spacing='40px' mt={'30px'}>
       {
         ordersAvailable === true && orders.length > 0 && 

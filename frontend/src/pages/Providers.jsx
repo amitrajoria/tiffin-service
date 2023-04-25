@@ -57,7 +57,7 @@ const Providers = () => {
     .catch((err) => console.log(err))
   }
 
-  console.log(user);
+  // console.log(user);
 
   const isProfileComplete = () => {
     if(user.name && user.email && user.mobile && user.room_no && user.address && user.pg_id)

@@ -84,58 +84,35 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.AppReducer.user);
-  const [LinkItems, setLinkItems] = useState([
-    { name: 'Home', icon: FiHome, href: '/' },
-    { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-    { name: 'Cart', icon: FiCompass, href: '/cart'  },
-    { name: 'Order History', icon: FiStar, href: '/orders' },
-    { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
-  ]);
+  const [LinkItems, setLinkItems] = useState([]);
 
   useEffect(() => {
-    console.log("WORKING SIDE BAR AGAIN AGINA |||||||||||||||||||||||||||||||||||||| ",Object.keys(user).length);
-    console.log(user);
     if(Object.keys(user).length === 0) {
-      console.log("WORKING SIDE BAR AGAIN AGINA &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
       dispatch(getProfile())
-      .then((res) => {
-        if(res.type === "USER_SUCCESS" && res?.payload?.role === "vender") {
-          setLinkItems([
-            { name: 'Home', icon: FiHome, href: '/' },
-            { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-            { name: 'Menu', icon: FiCompass, href: '/menu'  },
-            { name: 'Customers', icon: FiStar, href: '/customers' },
-            { name: 'PG', icon: FiSettings, href: '/pg' },
-            { name: 'Order History', icon: FiCompass, href: '/orders' },
-          ])
-        }
-      })
     }
   }, [Object.keys(user).length])
 
-  // useEffect(() => {
-  //   console.log(LinkItems);
-  //   console.log("WORKING SIDE BAR AGAIN AGINA ========================================");
-  //   if(user.role === "customer") {
-  //     setLinkItems([
-  //       { name: 'Home', icon: FiHome, href: '/' },
-  //       { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-  //       { name: 'Cart', icon: FiCompass, href: '/cart'  },
-  //       { name: 'Order History', icon: FiStar, href: '/orders' },
-  //       { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
-  //     ])
-  //   }
-  //   else if(user.role === "vender") {
-  //     setLinkItems([
-  //       { name: 'Home', icon: FiHome, href: '/' },
-  //       { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-  //       { name: 'Menu', icon: FiCompass, href: '/menu'  },
-  //       { name: 'Customers', icon: FiStar, href: '/customers' },
-  //       { name: 'PG', icon: FiSettings, href: '/pg' },
-  //       { name: 'Order History', icon: FiCompass, href: '/orders' },
-  //     ])
-  //   }
-  // }, [user.role]);
+  useEffect(() => {
+   if(user.role === "customer") {
+      setLinkItems([
+        { name: 'Home', icon: FiHome, href: '/' },
+        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
+        { name: 'Cart', icon: FiCompass, href: '/cart'  },
+        { name: 'Order History', icon: FiStar, href: '/orders' },
+        { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
+      ])
+    }
+    else if(user.role === "vender") {
+      setLinkItems([
+        { name: 'Home', icon: FiHome, href: '/' },
+        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
+        { name: 'Menu', icon: FiCompass, href: '/menu'  },
+        { name: 'Customers', icon: FiStar, href: '/customers' },
+        { name: 'PG', icon: FiSettings, href: '/pg' },
+        { name: 'Order History', icon: FiCompass, href: '/orders' },
+      ])
+    }
+  }, [user.role]);
 
   return (
     <Box
