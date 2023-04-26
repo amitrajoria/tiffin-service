@@ -84,8 +84,6 @@ const getCustomers = () => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
     return axios.get('http://localhost:8080/customers', { headers })     
-            // .then((res) => console.log(res))
-            // .catch((err) => console.log(err))
             .then((res) => {return { type: "SUCCESS", payload: res?.data?.customers}})
             .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
 }
@@ -94,8 +92,6 @@ const getPGRegistered = () => dispatch => {
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
     return axios.get('http://localhost:8080/pg/registered', { headers })     
-            // .then((res) => console.log(res))
-            // .catch((err) => console.log(err))
             .then((res) => {return { type: "SUCCESS", payload: res?.data?.pgs}})
             .catch((err) => {return { type: "FAILURE", payload: err?.response?.data?.msg}})
 }
@@ -144,6 +140,20 @@ const addTiffin = (payload, vender_id) => dispatch => {
             .then((res) => dispatch(getTiffins(vender_id)))
             .catch((err) => dispatch({ type: actions.TIFFIN_FAILURE, payload: err?.response?.data?.msg}))
 }
+
+const addVender = (payload) => dispatch => {
+    const token = getLoginData('loginToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return axios({
+                    method : "POST",
+                    url : `http://localhost:8080/venders/add`,
+                    headers,
+                    data : payload
+                })
+            .then((res) => dispatch(getVenders()))
+            .catch((err) => dispatch({ type: "FAILURE", payload: err?.response?.data?.msg}))
+}
+
 
 const placeOrder = (payload) => dispatch => {
     const token = getLoginData('loginToken');
@@ -206,6 +216,7 @@ export {
     getCustomers,
     getPGRegistered,
     addTiffin,
+    addVender,
     placeOrder,
     addPG,
     updateProfile,

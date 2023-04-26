@@ -19,6 +19,7 @@ import VenderPrivateRoute from './VenderPrivateRoute'
 import Menu from '../pages/Menu'
 import PGs from '../pages/PGs'
 import Customers from '../pages/Customers'
+import AdminHome from '../pages/AdminHome'
 
 
 const AllRoutes = () => {
@@ -38,7 +39,7 @@ const AllRoutes = () => {
             <Route path='/' element={
               <AuthenticateRoute>
                 <SideBar> 
-                  {(user?.role === "customer") ? <Home /> : <VenderHome />} 
+                  {(user?.role === "customer") ? <Home /> : ((user?.role === "vender" ) ? <VenderHome /> : <AdminHome />)} 
                 </SideBar>
               </AuthenticateRoute>}>
             </Route>

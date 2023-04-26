@@ -43,9 +43,9 @@ const Customers = () => {
   return (
     <>
         <Flex justify={'space-between'} margin={'20px 0'}>
-            <Heading as='h3' size='lg'>{customersAvailable && "All Customers"}</Heading>
+            <Heading as='h3' size='lg'>{customersAvailable !== null && ((customersAvailable) ? "All Customers" : "You haven't any registered Customer")}</Heading>
             <Button variant='outline' colorScheme='blue' onClick={(e) => copyLink(e)}>
-                Share Add Customer Link
+                Copy Add Customer Link
             </Button>
         </Flex>
         {
