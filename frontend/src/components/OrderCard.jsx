@@ -57,10 +57,10 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuan
           borderColor={cardBgColor}
           padding={2}
           borderRadius={'10px'}
-          direction={{ base: 'column', sm: 'row' }}
+          direction={{ base: 'row', sm: 'row' }}
           overflow='hidden'
           variant='outline'
-          width={'370px'}
+          max-width={'370px'}
         >
           <Image
             objectFit='cover'

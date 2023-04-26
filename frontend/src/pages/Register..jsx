@@ -16,7 +16,7 @@ import {
   } from '@chakra-ui/react';
   import { useEffect, useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  import { useNavigate, Link as ReactLink } from 'react-router-dom';
+  import { useNavigate, Link as ReactLink, useSearchParams } from 'react-router-dom';
 import { register } from '../Redux/AuthReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +26,8 @@ import { useDispatch, useSelector } from 'react-redux';
   export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [vender_id, SetVender_id] = useState(searchParams.get("vender") || "");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -39,7 +41,11 @@ import { useDispatch, useSelector } from 'react-redux';
         setLastName(lastName?.trim());
         setEmail(email?.trim());
         setPassword(password?.trim());
-        dispatch(register({name : firstName+" "+lastName, email , password}))
+        if(!firstName || !lastName || !email || !password) {
+          alert("All Form Fields are Required");
+          return ;
+        }
+        dispatch(register({name : firstName+" "+lastName, email , password, vender_id}))
         .then((res) => {
             alert(res?.payload);
             if(res?.payload == "Signup Successfull")

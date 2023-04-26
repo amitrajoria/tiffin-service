@@ -53,7 +53,7 @@ export default function SideBar ({children}) {
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: 'none', sm : 'none', md: 'block' }}
       />
       <Drawer
         autoFocus={false}
@@ -126,7 +126,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          Tiffin Service
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -217,7 +217,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        Logo
+        Tiffin Service
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -227,7 +227,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
           aria-label="open menu"
           icon={<FiBell />}
         /> */}
-        <Button onClick={toggleColorMode}>
+        <Button onClick={toggleColorMode} mr={4}>
           {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         </Button>
         <Flex alignItems={'center'}>
@@ -242,7 +242,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   name={user?.name}
                 />
                 <VStack
-                  display={{ base: 'none', md: 'flex' }}
+                  display={{ base: 'none', md: 'none' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
@@ -251,7 +251,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     Admin
                   </Text> */}
                 </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
+                <Box display={{ base: 'none', md: 'none' }}>
                   <FiChevronDown />
                 </Box>
               </HStack>

@@ -129,7 +129,7 @@ const Home = () => {
 
       {/* Tiffin Section */}
 
-      <SimpleGrid columns={[1, 2, 3]} spacing='20px'>
+      <SimpleGrid columns={[1, 2, 2]} spacing='20px'>
       {
         showVenders === false && tiffins.length > 0 && 
         tiffins.map((tiffin) => {

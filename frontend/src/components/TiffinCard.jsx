@@ -36,7 +36,7 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
           borderColor={cardBgColor}
           padding={2}
           borderRadius={'10px'}
-          direction={{ base: 'column', sm: 'row' }}
+          direction={{ base: 'row', sm: 'row' }}
           overflow='hidden'
           variant='outline'
         >
@@ -47,8 +47,8 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
             objectFit='cover'
             // maxW={{ base: '100%', sm: '200px' }}
             borderRadius={'10px'}
-            width={{ base: '100%', sm: 140, md: 100, lg : 140 }}
-            height={{ base: '100%', sm:140, md: 100, lg : 140 }}
+            width={{ base: 140, sm: 140, md: 100, lg : 140 }}
+            height={{ base: 140, sm: 140, md: 100, lg : 140 }}
             src={ tiffin.image || 'https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'}
             alt='Caffe Latte'
           />

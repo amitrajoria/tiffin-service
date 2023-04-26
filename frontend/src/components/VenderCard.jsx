@@ -3,7 +3,7 @@ import React from 'react'
 
 const VenderCard = ({ vender, subscribe, selectedVender }) => {
 
-    const cardBgColor = useColorModeValue('white', 'gray.900');
+    const cardBgColor = useColorModeValue('white', '#292b34');
 
   return (
     <Card
@@ -23,7 +23,7 @@ const VenderCard = ({ vender, subscribe, selectedVender }) => {
             />
           
             <Stack>
-              <CardBody paddingTop={'0'} paddingBottom={'0'}>
+              <CardBody paddingTop={{ base: 'auto', sm: 0, md: 0 }} paddingBottom={{ base: 'auto', sm: 0, md: 0 }}>
                 <Heading size='md'>{vender.name}</Heading>
           
                 <Text py='2' height={'86px'} overflow={'hidden'}>

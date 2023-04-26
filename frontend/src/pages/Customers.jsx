@@ -36,14 +36,14 @@ const Customers = () => {
     // console.log(Customers);
 
     const copyLink = (e) => {
-        navigator.clipboard.writeText(`http://localhost:3000/registered/?vender=${user._id}`);
+        navigator.clipboard.writeText(`http://localhost:3000/register?vender=${user._id}`);
         alert("Link Copied to Clipboard");
     }
 
   return (
     <>
-        <Flex justify={'space-between'} margin={'20px 0'}>
-            <Heading as='h3' size='lg'>{customersAvailable !== null && ((customersAvailable) ? "All Customers" : "You haven't any registered Customer")}</Heading>
+        <Flex justify={'space-between'} margin={'20px 0'} direction={{ base: 'column', sm: 'row', md : 'row' }}>
+            <Heading as='h3' size='lg' marginBottom={5}>{customersAvailable !== null && ((customersAvailable) ? "All Customers" : "You haven't any registered Customer")}</Heading>
             <Button variant='outline' colorScheme='blue' onClick={(e) => copyLink(e)}>
                 Copy Add Customer Link
             </Button>

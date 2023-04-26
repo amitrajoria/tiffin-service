@@ -42,11 +42,16 @@ const OrderHistory = () => {
   return (
     <>
       <Heading as='h3' size='lg' margin={'10px 0'}>{(ordersAvailable !== null && ((ordersAvailable) ? "Order History" : "You haven't ordered anything yet"))}</Heading>
-      <SimpleGrid columns={[1, 2, 2]} spacing='40px' mt={'30px'}>
+      <SimpleGrid columns={[1, 1, 2]} spacing='40px' mt={'30px'}>
       {
         ordersAvailable === true && orders.length > 0 && 
         orders.map((order) => {
-          return <Card key={order._id} padding='4' bg={'unset'} border='1px solid' borderColor={cardBorderColor} width={'fit-content'}>
+          return <Card key={order._id} 
+                  padding='4' 
+                  bg={'unset'} 
+                  border='1px solid' 
+                  borderColor={cardBorderColor} 
+                  width={{ base: 'auto', sm: 'auto', md: 'fit-content' }}>
             <Stack>
               <Text><TimeIcon mt={'-3px'} mr='4px' />{moment(order.createdAt).utc().format("dddd, MMMM Do YYYY, h:mm:ss a")}</Text>
               <Text display={'flex'}><MdOutlineLocationOn  style={{margin:'4px 1px 0 0', fontSize:'larger'}}/>{order?.vender?.name}</Text>

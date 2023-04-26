@@ -36,9 +36,9 @@ AuthController.post("/login", async (req, res) => {
 })
 
 AuthController.post("/register", validateAuth, (req, res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, vender_id} = req.body;
     bcrypt.hash(password, 8).then(async function(hash) {
-        const user = new UserModel({name, email, password:hash});
+        const user = new UserModel({name, email, password:hash, vender_id});
         await user.save();
         res.status('201').send({msg: "Signup Successfull"});
     });

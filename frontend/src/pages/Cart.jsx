@@ -167,7 +167,8 @@ const Cart = () => {
                     direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'
                     variant='outline'
-                    width='370px'
+                    max-width='370px'
+                    marginTop={{ base: 25 , sm: 25, md: 0 }}
                   >
                     <Stack width={'100%'}>
                       {/* <Heading as='h5' size='md'> Coupon Code </Heading> */}

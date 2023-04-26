@@ -93,7 +93,7 @@ const Providers = () => {
       
       {/* Vender Section */}
       
-      <SimpleGrid columns={[1, 2, 2]} spacing='40px' mt={'30px'}>
+      <SimpleGrid columns={[1, 1, 2]} spacing='40px' mt={'30px'}>
       {
         showVenders && venders.length > 0 && 
         venders.map((vender) => {
