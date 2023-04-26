@@ -125,7 +125,7 @@ const Menu = () => {
 
     {ActiveTiffins > 0 && <Heading as='h4' color={headingColor} size='md' margin={'15px 0'}>Active Menus</Heading>}
 
-    <SimpleGrid columns={[1, 2, 2]} spacing='20px'>
+    <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing='20px'>
       {
         tiffinAvailable && tiffins.length > 0 && 
         tiffins.map((tiffin) => {
@@ -136,7 +136,7 @@ const Menu = () => {
 
     {NonActiveTiffins > 0 && <Heading as='h4' color={headingColor} size='md' margin={'30px 0 15px 0'}>Not Active Menus</Heading>}
 
-    <SimpleGrid columns={[1, 2, 2]} spacing='20px'>
+    <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing='20px'>
       {
         tiffinAvailable && tiffins.length > 0 && 
         tiffins.map((tiffin) => {

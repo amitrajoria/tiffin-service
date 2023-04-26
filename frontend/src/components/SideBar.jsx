@@ -53,7 +53,7 @@ export default function SideBar ({children}) {
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', sm : 'none', md: 'block' }}
+        display={{ base: 'none', md: 'none', lg: 'block' }}
       />
       <Drawer
         autoFocus={false}
@@ -69,7 +69,7 @@ export default function SideBar ({children}) {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 0, lg: 60 }} p="4">
         {children}
       </Box>
     </Box>
@@ -120,15 +120,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
+      w={{ base: 'full', md: 'full', lg: 60 }}
       pos="fixed"
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Tiffin Service
+          Tiffin Service 
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'flex', lg: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem href={link?.href || '#'} key={link.name} icon={link.icon}>
@@ -195,17 +195,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
+      ml={{ base: 0, md: 0, lg: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent={{ base: 'space-between', md: 'flex-end' }}
+      justifyContent={{ base: 'space-between', md: 'space-between', lg: 'flex-end' }}
       {...rest}>
       <IconButton
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: 'flex', md: 'flex', lg: 'none' }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
@@ -213,14 +213,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
       />
 
       <Text
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: 'flex', md: 'flex', lg: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
         Tiffin Service
       </Text>
 
-      <HStack spacing={{ base: '0', md: '6' }}>
+      <HStack spacing={{ base: '0', md: '0', lg : '6' }}>
         {/* <IconButton
           size="lg"
           variant="ghost"

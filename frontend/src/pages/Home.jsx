@@ -118,7 +118,7 @@ const Home = () => {
       
       {/* Vender Section */}
       
-      <SimpleGrid columns={[1, 2, 2]} spacing='40px' mt={'30px'}>
+      <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing='40px' mt={'30px'}>
       {
         showVenders === true && venders.length > 0 && 
         venders.map((vender) => {
@@ -129,7 +129,7 @@ const Home = () => {
 
       {/* Tiffin Section */}
 
-      <SimpleGrid columns={[1, 2, 2]} spacing='20px'>
+      <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing='20px'>
       {
         showVenders === false && tiffins.length > 0 && 
         tiffins.map((tiffin) => {
