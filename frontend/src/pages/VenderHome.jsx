@@ -1,8 +1,9 @@
-import { Box, Button, Card, Center, Flex, Heading, List, ListItem, Skeleton, Spacer, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Heading, List, ListItem, Skeleton, Spacer, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders, getOrdersAnalytics } from '../Redux/AppReducer/action';
 import { makeDate } from '../utils/ConvertDate';
+import TableSkeleton from '../skeleons/TableSkeleton';
 
 const VenderHome = () => {
 
@@ -70,26 +71,15 @@ const VenderHome = () => {
     <>            
       <Heading as='h3' size='lg' margin={'20px 0'}>{ordersAvailable !== null && ((ordersAvailable) ? "Orders Analytics" : "You haven't got any order today")}</Heading>
       {
-            (ordersAvailable === null || isAnalytics === null) && 
-            <Stack padding={4} spacing={1}>
-                <Skeleton height='40px'>
-                </Skeleton>
-                <Skeleton
-                    height='40px'
-                    bg='green.500'
-                    color='white'
-                    fadeDuration={1}
-                >
-                </Skeleton>
-                <Skeleton
-                    height='40px'
-                    fadeDuration={4}
-                    bg='blue.500'
-                    color='white'
-                >
-                </Skeleton>
-            </Stack>
-        }
+        <Stack>
+            { (ordersAvailable === null && isAnalytics === null) && 
+            <Skeleton width={'100px'} height={'30px'} borderRadius={5} my={4}/> }
+            { (isAnalytics === null) && 
+            <Skeleton width={'100%'} height={'120px'} borderRadius={5} my={4}/> }
+            { (ordersAvailable === null) && 
+            <TableSkeleton /> }
+        </Stack>
+      }
       {/* <Card> */}
       {isAnalytics && analytics.length > 0 && <Box bg={tableBgColor} my={8}>
         

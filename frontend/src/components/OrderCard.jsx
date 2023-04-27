@@ -60,7 +60,7 @@ const OrderCard = ({ tiffin, vender_id, cart, setQuantity, quantity, historyQuan
           direction={{ base: 'row', sm: 'row' }}
           overflow='hidden'
           variant='outline'
-          max-width={'370px'}
+          width={{ base: 'auto', sm: 'auto', md : '360px' }}
         >
           <Image
             objectFit='cover'

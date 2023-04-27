@@ -227,7 +227,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
           aria-label="open menu"
           icon={<FiBell />}
         /> */}
-        <Button onClick={toggleColorMode} mr={4}>
+        <Button onClick={toggleColorMode} mr={2}>
           {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         </Button>
         <Flex alignItems={'center'}>
@@ -242,7 +242,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   name={user?.name}
                 />
                 <VStack
-                  display={{ base: 'none', md: 'none' }}
+                  display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
@@ -251,7 +251,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     Admin
                   </Text> */}
                 </VStack>
-                <Box display={{ base: 'none', md: 'none' }}>
+                <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>
               </HStack>

@@ -6,6 +6,7 @@ import TiffinCard from '../components/TiffinCard';
 import VenderCard from '../components/VenderCard';
 import AddMenu from '../models/AddMenu';
 import { getCart, getProfile, getTiffins, getVenders, updateProfile, updateTiffinStatus } from '../Redux/AppReducer/action';
+import TiffinCardSkeleton from '../skeleons/TiffinCardSkeleton';
 
 const Menu = () => {
 
@@ -87,25 +88,7 @@ const Menu = () => {
   return (
     <> 
     {
-      tiffinAvailable === null && 
-      <Stack padding={4} spacing={1}>
-      <Skeleton height='40px'>
-      </Skeleton>
-      <Skeleton
-        height='40px'
-        bg='green.500'
-        color='white'
-        fadeDuration={1}
-      >
-      </Skeleton>
-      <Skeleton
-        height='40px'
-        fadeDuration={4}
-        bg='blue.500'
-        color='white'
-      >
-      </Skeleton>
-    </Stack>
+      tiffinAvailable === null && <TiffinCardSkeleton />
     }
 
     

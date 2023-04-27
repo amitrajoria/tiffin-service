@@ -6,6 +6,7 @@ import OrderCard from '../components/OrderCard';
 import moment from 'moment/moment';
 import { TimeIcon } from '@chakra-ui/icons';
 import { MdOutlineLocationOn } from "react-icons/md";
+import OrderHistorySkeleton from '../skeleons/OrderHistorySkeleton';
 
 const OrderHistory = () => {
 
@@ -42,6 +43,9 @@ const OrderHistory = () => {
   return (
     <>
       <Heading as='h3' size='lg' margin={'10px 0'}>{(ordersAvailable !== null && ((ordersAvailable) ? "Order History" : "You haven't ordered anything yet"))}</Heading>
+      {
+        ordersAvailable === null && <OrderHistorySkeleton />
+      }
       <SimpleGrid columns={[1, 1, 2]} spacing='40px' mt={'30px'}>
       {
         ordersAvailable === true && orders.length > 0 && 

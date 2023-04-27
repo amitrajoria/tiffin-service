@@ -2,6 +2,7 @@ import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableConta
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getPGRegistered } from '../Redux/AppReducer/action';
+import TableSkeleton from '../skeleons/TableSkeleton';
 
 const PGs = () => {
 
@@ -39,24 +40,11 @@ const PGs = () => {
         </Flex>
         {
             PGAvailable === null && 
-            <Stack padding={4} spacing={1}>
-                <Skeleton height='40px'>
-                </Skeleton>
-                <Skeleton
-                    height='40px'
-                    bg='green.500'
-                    color='white'
-                    fadeDuration={1}
-                >
-                </Skeleton>
-                <Skeleton
-                    height='40px'
-                    fadeDuration={4}
-                    bg='blue.500'
-                    color='white'
-                >
-                </Skeleton>
+            <Stack>
+                <Skeleton width={'100px'} height={'30px'} borderRadius={5} marginBottom={4} display={'flex'} />
+                <TableSkeleton />
             </Stack>
+            
         }
         
         {

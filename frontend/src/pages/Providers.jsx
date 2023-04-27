@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import VenderCard from '../components/VenderCard';
 import { getProfile, getVenders, updateProfile } from '../Redux/AppReducer/action';
+import ProvidersSkeleton from '../skeleons/ProvidersSkeleton';
 
 const Providers = () => {
 
@@ -69,25 +70,7 @@ const Providers = () => {
   return (
     <> 
     {
-      !showVenders && 
-      <Stack padding={4} spacing={1}>
-      <Skeleton height='40px'>
-      </Skeleton>
-      <Skeleton
-        height='40px'
-        bg='green.500'
-        color='white'
-        fadeDuration={1}
-      >
-      </Skeleton>
-      <Skeleton
-        height='40px'
-        fadeDuration={4}
-        bg='blue.500'
-        color='white'
-      >
-      </Skeleton>
-    </Stack>
+      !showVenders && <ProvidersSkeleton />
     }
     {showVenders && <Heading as='h3' size='lg' margin={'10px 0'}>Tiffin Providers</Heading>}
       
