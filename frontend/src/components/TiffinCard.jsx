@@ -1,4 +1,4 @@
-import { Badge, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Badge, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useColorModeValue, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../Redux/AppReducer/action';
@@ -7,15 +7,23 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
 
     const cardBgColor = useColorModeValue('white', '#292b34');
     const dispatch = useDispatch();
+    const toast = useToast();
     const [disable, setDisable] = useState(false);
 
     // console.log(cart);
 
 
-    const book = (id, price) => {
+    const itemAddToCart = (id, price) => {
       setDisable("isDisabled");
-      if(bookedId.includes(id))
-        alert("Already Booked");
+      if(bookedId.includes(id)) {
+        toast({
+          title: "Already in Cart",
+          position: 'top-right',
+          isClosable: true,
+          status: 'error' 
+        })
+        return ;
+      }
         
         const payload = {
             tiffin_id : id, 
@@ -23,10 +31,24 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
         }
         dispatch(addToCart(payload))
         .then((res) => {
-            if(res?.type == "ORDER_SUCCESS")
-                console.log("Order Placed");
+            if(res?.type == "CART_SUCCESS") {
+              toast({
+                title: "Added to Cart",
+                position: 'top-right',
+                isClosable: true,
+                status: 'success' 
+              })
+            }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          toast({
+            title: err?.payload,
+            position: 'top-right',
+            isClosable: true,
+            status: 'error' 
+          })
+        })
     }
     
  
@@ -70,7 +92,7 @@ const TiffinCard = ({ tiffin, vender_id, cart, bookedId, buttonText, updateStatu
                     {buttonText}
                   </Button> 
                   :
-                  <Button variant='solid' colorScheme='blue' isDisabled={disable || bookedId.includes(tiffin._id)} onClick={() => book(tiffin._id, tiffin.price)}>
+                  <Button variant='solid' colorScheme='blue' isDisabled={disable || bookedId.includes(tiffin._id)} onClick={() => itemAddToCart(tiffin._id, tiffin.price)}>
                     {(bookedId.includes(tiffin._id)) ? "Booked" : "Book"}
                   </Button>
                 }

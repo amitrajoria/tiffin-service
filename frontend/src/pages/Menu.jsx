@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, SimpleGrid, Skeleton, Stack, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Heading, SimpleGrid, Skeleton, Stack, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import TiffinCardSkeleton from '../skeleons/TiffinCardSkeleton';
 const Menu = () => {
 
   const dispatch = useDispatch();
+  const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const {user, tiffins} = useSelector((store) => (
     {
@@ -72,7 +73,12 @@ const Menu = () => {
     dispatch(updateTiffinStatus({id, status, vender_id: user?._id}))
     .then((res) => { 
       if(res?.type === "TIFFIN_SUCCESS") {
-        console.log("Tiffin updated successfully");
+        toast({
+          title: "Tiffin Updated Successfully",
+          position: 'top-right',
+          isClosable: true,
+          status: 'success' 
+        })
         if(status) {
           setActiveTiffins(prev => prev+1);
           setNonActiveTiffins(prev => prev-1);

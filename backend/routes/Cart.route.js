@@ -32,9 +32,9 @@ CartController.delete('/delete/:cart_id', authenticate, async (req, res) => {
     const cart_id = req.params.cart_id;
     const isDeleted =  await CartModel.findByIdAndDelete({_id : cart_id , user_id});
     if(isDeleted)
-        res.status('200').send({msg : "Order Deleted"});
+        res.status('200').send({msg : "Item Deleted"});
     else 
-        res.status('404').send({msg : "Order not found"});
+        res.status('404').send({msg : "Item not found"});
 })
 
 module.exports = {

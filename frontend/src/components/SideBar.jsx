@@ -126,7 +126,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Tiffin Service 
+          Tiffin Wala 
         </Text>
         <CloseButton display={{ base: 'flex', md: 'flex', lg: 'none' }} onClick={onClose} />
       </Flex>
@@ -217,7 +217,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        Tiffin Service
+        Tiffin Wala
       </Text>
 
       <HStack spacing={{ base: '0', md: '0', lg : '6' }}>

@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardBody, CardFooter, FormControl, FormLabel, Grid, GridItem, Heading, Image, Input, Select, SimpleGrid, Stack, Text, Textarea, useColorModeValue, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Box, Button, Card, CardBody, CardFooter, FormControl, FormLabel, Grid, GridItem, Heading, Image, Input, Select, SimpleGrid, Stack, Text, Textarea, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import AddPG from '../models/AddPG';
@@ -24,11 +24,10 @@ const Profile = () => {
     pg_id : ""
   }
   const [formState, setFormState] = useState(initState);
-  // console.log(user);
   const { name, email, mobile, room_no, description, address, pg, image } = formState;
-  // console.log(formState);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast();
 
   useEffect(() => {
     
@@ -77,10 +76,24 @@ const Profile = () => {
     e.preventDefault();
     dispatch(updateProfile(formState))
     .then((res) => {
-      if(res?.type == 'USER_SUCCESS')
-        console.log("Profile Updated");
+      if(res?.type === 'USER_SUCCESS') {
+        toast({
+          title: "Profile Updated",
+          position: 'top-right',
+          isClosable: true,
+          status: 'success' 
+        })
+      }
     } )
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+      toast({
+        title: err?.payload,
+        position: 'top-right',
+        isClosable: true,
+        status: 'error' 
+      })
+    })
   }
   
   return (

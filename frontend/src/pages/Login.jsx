@@ -15,6 +15,7 @@ import {
     Divider,
     Text,
     useColorModeValue,
+    useToast,
   } from '@chakra-ui/react';
   import { useEffect, useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -27,19 +28,13 @@ import { login } from '../Redux/AuthReducer/action';
   
   export default function Login() {
   
-    // const {isAuth, isLoading, isError, response} = useSelector((store) => 
-    // ({
-    //   isAuth : store.AuthReducer.isAuth ,
-    //   isLoading : store.AuthReducer.isLoading , 
-    //   isError : store.AuthReducer.isError ,
-    //   response : store.AuthReducer.response
-    // }));
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const nevigate = useNavigate();
+    const toast = useToast();
 //   console.log(isLoading);
 //     useEffect(() => {
 //       if(isAuth && !isError) {
@@ -52,8 +47,14 @@ import { login } from '../Redux/AuthReducer/action';
       dispatch(login({"email": username, password}))
       .then((res) => {
         console.log(res);
-        if(res?.type == "LOGIN_FAILURE")
-          alert(res?.payload);
+        if(res?.type == "LOGIN_FAILURE") {
+          toast({
+            title: res?.payload,
+            position: 'top-right',
+            isClosable: true,
+            status: 'error' 
+          })
+        }
         else if(res?.payload?.msg == "LoggedIn Successfull")
           nevigate('/', {replace : true}); 
       });

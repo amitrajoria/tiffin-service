@@ -30,7 +30,7 @@ const PGs = () => {
         })
     }, [PGs.length])
 
-    console.log(PGs);
+    // console.log(PGs);
     // console.log(PGAvailable);
 
   return (

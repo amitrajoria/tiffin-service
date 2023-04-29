@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Skeleton, Stack } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Skeleton, Stack, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ const Providers = () => {
   ));
   const [showVenders, setShowVenders] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
 
 
   useEffect(() => {
@@ -41,7 +42,15 @@ const Providers = () => {
           alert('Tiffin Provider Subscribed')
           window.location.href = "/";
       } )
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        toast({
+          title: err?.payload,
+          position: 'top-right',
+          isClosable: true,
+          status: 'error' 
+        })
+      })
     }
     else {
       alert("complete you profile first");
@@ -52,10 +61,24 @@ const Providers = () => {
   const unsubscribe = (vender_id) => {
     dispatch(updateProfile({vender_id : ""}))
     .then((res) => {
-      if(res?.type == 'USER_SUCCESS')
-        alert("Provider Unsubscribed");
+      if(res?.type == 'USER_SUCCESS') {
+        toast({
+          title: "Provider Unsubscribed",
+          position: 'top-right',
+          isClosable: true,
+          status: 'success' 
+        })
+      }
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+      toast({
+        title: err?.payload,
+        position: 'top-right',
+        isClosable: true,
+        status: 'error' 
+      })
+    })
   }
 
   // console.log(user);

@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -48,7 +48,7 @@ function AddMenu({isOpen, onClose, vender_id}) {
 
     const [formState, setFormState] = useReducer(reducer, initState);
     const dispatch = useDispatch();
-  
+    const toast = useToast();
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
 
@@ -63,8 +63,14 @@ function AddMenu({isOpen, onClose, vender_id}) {
       }
       dispatch(addTiffin(formState, vender_id))
       .then((res) => {
-        if(res?.type === "TIFFIN_SUCCESS")
-          alert("New Tiffin Added Successfully");
+        if(res?.type === "TIFFIN_SUCCESS") {
+          toast({
+            title: "Tiffin Added Successfully",
+            position: 'top-right',
+            isClosable: true,
+            status: 'success' 
+          })
+        }
 
         if(res?.type != "TIFFIN_FAILURE")
           onClose();

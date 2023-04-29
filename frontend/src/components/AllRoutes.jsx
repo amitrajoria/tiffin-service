@@ -32,14 +32,17 @@ const AllRoutes = () => {
       dispatch(getProfile())
   }, [user])   
   
-  
   return (
     <>
         <Routes>
             <Route path='/' element={
               <AuthenticateRoute>
                 <SideBar> 
-                  {(user?.role === "customer") ? <Home /> : ((user?.role === "vender" ) ? <VenderHome /> : <AdminHome />)} 
+                  {
+                    (user?.role) 
+                    ? ((user?.role === "customer") ? (<Home />) : ((user?.role === "vender") ? <VenderHome /> : <AdminHome />))
+                    : ""
+                  } 
                 </SideBar>
               </AuthenticateRoute>}>
             </Route>
@@ -53,7 +56,11 @@ const AllRoutes = () => {
             <Route path='/orders' element={
               <AuthenticateRoute>
                 <SideBar> 
-                  {(user?.role === "customer") ? <OrderHistory /> : <VenderOrderHistory />}
+                  {
+                    (user?.role)
+                    ? ((user?.role === "customer") ? <OrderHistory /> : <VenderOrderHistory />)
+                    : ""
+                  }
                 </SideBar>
               </AuthenticateRoute>}>
             </Route>

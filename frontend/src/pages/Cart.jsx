@@ -1,5 +1,5 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Card, Divider, Flex, Heading, Input, Radio, RadioGroup, SimpleGrid, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Card, Divider, Flex, Heading, Input, Radio, RadioGroup, SimpleGrid, Stack, Text, useColorModeValue, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCard from '../components/OrderCard';
@@ -16,7 +16,6 @@ const Cart = () => {
     const cardBgColor = useColorModeValue('white', '#292b34');
     const cardSubTotalBgColor = useColorModeValue('white', 'gray.900');
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
-    // const [bookedId, setBookedId] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState("");
     const [subTotal, setSubTotal] = useState(0);
     const [total, setTotal] = useState(0);
@@ -24,6 +23,7 @@ const Cart = () => {
     const [delivery, setDelivery] = useState(0);
     const [payment, setPayment] = useState('UPI');
     const [paymentDisable, setPaymentDisable] = useState(false);
+    const toast = useToast();
 
     // console.log("CART ", cart);
     useEffect(() => {
@@ -103,13 +103,24 @@ const Cart = () => {
       .then((res) => {
         console.log(res);
         if(res?.type == 'SUCCESS') {
-          alert(res?.payload);
+          toast({
+            title: res?.payload,
+            position: 'top-right',
+            isClosable: true,
+            status: 'success' 
+          })
           dispatch(getCart())
         }
       })
       .catch((err) => {
         if(err?.type == 'FAILURE')
           alert(err?.payload);
+          toast({
+            title: err?.payload,
+            position: 'top-right',
+            isClosable: true,
+            status: 'error' 
+          })
       });
 
     }
@@ -118,7 +129,12 @@ const Cart = () => {
       dispatch(deleteCartItem(cart_id))
       .then((res) => {
           if(res?.type == 'CART_SUCCESS') {
-          alert("Item Removed from Cart");
+            toast({
+              title: "Item Removed from Cart",
+              position: 'top-right',
+              isClosable: true,
+              status: 'success' 
+            })
         }
       });
     }
@@ -128,7 +144,7 @@ const Cart = () => {
       e.preventDefault();
     }
 
-    console.log("CART EMPTY ", cartEmpty);
+    // console.log("CART EMPTY ", cartEmpty);
 
   return (
     <>

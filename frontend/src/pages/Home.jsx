@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid } from '@chakra-ui/react';
+import { Heading, SimpleGrid, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ const Home = () => {
   ));
   const [showVenders, setShowVenders] = useState(null);
   const navigate = useNavigate();
+  const toast = useToast();
   const cart = useSelector((store) => store.OrderReducer.cart);
   const [bookedId, setBookedId] = useState([]);
   const [tiffinHeading, setTiffinHeading] = useState((tiffins.length > 0) ? "Today's Menu" : "");
@@ -65,17 +66,24 @@ const Home = () => {
 
 }, [venders.length, tiffins.length, user?.vender_id])
 
-  console.log(tiffins);
+  // console.log(tiffins);
 
   const subscribe = (vender_id) => {
     if(isProfileComplete()) {
-      alert(vender_id);
       dispatch(updateProfile({vender_id}))
       .then((res) => {
         if(res?.type == 'USER_SUCCESS')
           setShowVenders(false);
       } )
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        toast({
+          title: err?.payload,
+          position: 'top-right',
+          isClosable: true,
+          status: 'error' 
+        })
+      })
     }
     else {
       alert("complete you profile first");
@@ -102,7 +110,7 @@ const Home = () => {
       
       {/* Vender Section */}
       
-      <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing='40px' mt={'30px'}>
+      <SimpleGrid columns={[1, 2, 2, 2, 2, 3]} spacing='40px' mt={'30px'}>
       {
         showVenders === true && venders.length > 0 && 
         venders.map((vender) => {

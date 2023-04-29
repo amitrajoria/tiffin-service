@@ -1,4 +1,4 @@
-import { Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Textarea, useColorModeValue, useDisclosure } from "@chakra-ui/react"
+import { Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Textarea, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addPG, getPGs } from "../Redux/AppReducer/action"
@@ -11,6 +11,7 @@ function AddPG({isOpen, onClose}) {
     const [name , setName] = useState("");
     const [address, setAddress] = useState("");
     const dispatch = useDispatch();
+    const toast = useToast();
     const pgLoading = useSelector((store) => store.AppReducer.pgLoading);
     const inputBgColor = useColorModeValue('input-light', 'input-dark');
 
@@ -18,6 +19,14 @@ function AddPG({isOpen, onClose}) {
     const savePG = () => {
         dispatch(addPG({name, address}))
         .then((res) => {
+          if(res?.type === "PG_SUCCESS") {
+            toast({
+              title: "New PG Added Successfully",
+              position: 'top-right',
+              isClosable: true,
+              status: 'success' 
+            })
+          }
           if(res?.type != "PG_FAILURE")
             onClose();
         })

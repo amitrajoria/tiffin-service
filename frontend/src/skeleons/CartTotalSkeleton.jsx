@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Skeleton, Stack } from '@chakra-ui/react'
+import { Box, SimpleGrid, Skeleton, SkeletonText, Stack } from '@chakra-ui/react'
 import React from 'react'
 
 
@@ -7,12 +7,11 @@ const CartTotalSkeleton = () => {
     <>
         <Box width={{ base: 'auto', sm: 'auto', md : '360px' }}>
             <Skeleton height={'30px'} borderRadius={5} my={5} />
-            <Skeleton height={'10px'} borderRadius={5} my={2} />
-            <Skeleton height={'10px'} borderRadius={5} my={2} />
+            <SkeletonText mt='4' noOfLines={2} spacing='3' skeletonHeight='2' />
             <Skeleton height={'30px'} borderRadius={5} my={5} />
-            <Skeleton height={'10px'} borderRadius={5} my={2} />
-            <Skeleton height={'10px'} borderRadius={5} my={2} />
+            <SkeletonText mt='4' noOfLines={3} spacing='4' skeletonHeight='2' />
             <Skeleton height={'30px'} borderRadius={5} my={5} />
+            <SkeletonText mt='4' noOfLines={2} spacing='2' skeletonHeight='2' />
         </Box>
     </>
   )

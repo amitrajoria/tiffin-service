@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, HStack, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useColorModeValue, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Textarea, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useReducer, useState } from 'react'
 import { useDispatch} from 'react-redux'
 import { addVender } from '../Redux/AppReducer/action'
@@ -58,6 +58,7 @@ function AddVender({isOpen, onClose}) {
     const inputBgColor = useColorModeValue('input-light', 'input-dark');  
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
+    const toast = useToast();
 
 
     const addNewVender = () => {
@@ -76,8 +77,14 @@ function AddVender({isOpen, onClose}) {
       dispatch(addVender({name: firstName+" "+lastName, mobile, email, password, address, role: "vender"}))
       .then((res) => {
         console.log(res);
-        if(res?.type === "VENDER_SUCCESS")
-          alert("New Vender Added Successfully");
+        if(res?.type === "VENDER_SUCCESS") {
+          toast({
+            title: "Vender Added Successfully",
+            position: 'top-right',
+            isClosable: true,
+            status: 'success' 
+          })
+        }
 
         if(res?.type != "FAILURE")
           onClose();

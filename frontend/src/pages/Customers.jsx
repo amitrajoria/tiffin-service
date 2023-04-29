@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Button, Flex, Heading, Skeleton, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCustomers, getProfile } from '../Redux/AppReducer/action';
@@ -10,6 +10,7 @@ const Customers = () => {
     const tableBgColor = useColorModeValue('white', '#292b34');
     const [customersAvailable, setCustomersAvailable] = useState(null);
     const [Customers, setCustomers] = useState([]);
+    const toast = useToast();
     const user = useSelector((store) => store.AppReducer.user);
 
     useEffect(() => {
@@ -39,6 +40,12 @@ const Customers = () => {
     const copyLink = (e) => {
         navigator.clipboard.writeText(`http://localhost:3000/register?vender=${user._id}`);
         alert("Link Copied to Clipboard");
+        toast({
+            title: "Link Copied to Clipboard",
+            position: 'top-right',
+            isClosable: true,
+            status: 'success' 
+          })
     }
 
   return (

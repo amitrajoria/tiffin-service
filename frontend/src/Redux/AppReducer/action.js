@@ -47,9 +47,7 @@ const getCart = () => async dispatch => {
     dispatch({ type: actions.CART_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return axios.get(`http://localhost:8080/cart/${venderId}`, { headers })     
-            // .then((res) => console.log(res))
-            // .catch((err) => console.log(err))
+    return axios.get(`http://localhost:8080/cart/${venderId}`, { headers })   
             .then((res) => dispatch({ type: actions.CART_SUCCESS, payload: res?.data?.cart}))
             .catch((err) => dispatch({ type: actions.CART_FAILURE, payload: err?.response?.data?.msg}))
 }
