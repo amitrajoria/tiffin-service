@@ -18,7 +18,8 @@ const VenderHome = () => {
   
     useEffect(() => {
       if(orders.length == 0) {
-        dispatch(getOrders(`date=${new Date().toLocaleDateString()}`))
+        var startDate = new Date().toISOString();
+        dispatch(getOrders(`startDate=${startDate}`))
         .then((res) => {
           // console.log(res);
             if(res.type == "ORDER_SUCCESS") {
@@ -38,7 +39,8 @@ const VenderHome = () => {
 
     useEffect(() => {
       if(analytics.length == 0) {
-        dispatch(getOrdersAnalytics(`date=${new Date().toLocaleDateString()}`))
+        var startDate = new Date().toISOString();
+        dispatch(getOrdersAnalytics(`startDate=${startDate}`))
         .then((res) => {
           // console.log(res);
             if(res.type == "SUCCESS") {

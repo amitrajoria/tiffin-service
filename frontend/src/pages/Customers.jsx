@@ -51,7 +51,7 @@ const Customers = () => {
   return (
     <>
         <Flex justify={'space-between'} margin={'20px 0'} direction={{ base: 'column', sm: 'row', md : 'row' }}>
-            <Heading as='h3' size='lg' marginBottom={5}>{customersAvailable !== null && ((customersAvailable) ? "All Customers" : "You haven't any registered Customer")}</Heading>
+            <Heading as='h3' size='lg' marginBottom={5}>{customersAvailable !== null && ((customersAvailable) ? `All Customers (${Customers?.length})` : "You haven't any registered Customer")}</Heading>
             <Button variant='outline' colorScheme='blue' onClick={(e) => copyLink(e)}>
                 Copy Add Customer Link
             </Button>

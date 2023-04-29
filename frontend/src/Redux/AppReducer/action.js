@@ -53,6 +53,7 @@ const getCart = () => async dispatch => {
 }
 
 const getOrders = (params) => dispatch => {
+    console.log("GET ORDERS => ",params);
     dispatch({ type: actions.ORDER_REQUEST});
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
@@ -63,6 +64,7 @@ const getOrders = (params) => dispatch => {
 }
 
 const getOrdersHistory = (params) => dispatch => {
+    console.log("GET ORDER HISTORY => ",params);
     const token = getLoginData('loginToken');
     const headers = { Authorization: `Bearer ${token}` };
     return axios.get(`http://localhost:8080/orders?${params}`, { headers }) 

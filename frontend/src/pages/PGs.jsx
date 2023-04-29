@@ -36,7 +36,7 @@ const PGs = () => {
   return (
     <>
         <Flex justify={'space-between'} margin={'20px 0'}>
-            <Heading as='h3' size='lg'>{PGAvailable !== null && (PGAvailable ? "All PGs" : "No PG Registered")}</Heading>
+            <Heading as='h3' size='lg'>{PGAvailable !== null && (PGAvailable ? `All PGs (${PGs?.length})` : "No PG Registered")}</Heading>
         </Flex>
         {
             PGAvailable === null && 
