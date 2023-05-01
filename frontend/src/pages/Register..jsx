@@ -32,6 +32,7 @@ import { useDispatch, useSelector } from 'react-redux';
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const nevigate = useNavigate();
     const dispatch = useDispatch();
     // const response = useSelector((store) => store.AuthReducer.response);
@@ -45,9 +46,11 @@ import { useDispatch, useSelector } from 'react-redux';
           alert("All Form Fields are Required");
           return ;
         }
+        setLoading(true);
         dispatch(register({name : firstName+" "+lastName, email , password, vender_id}))
         .then((res) => {
             alert(res?.payload);
+            setLoading(false);
             if(res?.payload == "Signup Successfull")
                 nevigate('/login', {replace : true});
         })
@@ -111,13 +114,14 @@ import { useDispatch, useSelector } from 'react-redux';
               </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
-                  loadingText="Submitting"
+                  loadingText="Signing Up..."
                   size="lg"
                   bg={'blue.400'}
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
                   }} 
+                  isLoading={loading}
                   onClick={signup}
                   >
                   Sign up

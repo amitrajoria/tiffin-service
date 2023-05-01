@@ -32,10 +32,10 @@ import { login } from '../Redux/AuthReducer/action';
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const nevigate = useNavigate();
     const toast = useToast();
-//   console.log(isLoading);
 //     useEffect(() => {
 //       if(isAuth && !isError) {
 //         nevigate('/', {replace : true}); 
@@ -44,9 +44,11 @@ import { login } from '../Redux/AuthReducer/action';
   
   
     const loginUser = () => {
+      setLoading(true);
       dispatch(login({"email": username, password}))
       .then((res) => {
         console.log(res);
+        setLoading(false);
         if(res?.type == "LOGIN_FAILURE") {
           toast({
             title: res?.payload,
@@ -56,7 +58,7 @@ import { login } from '../Redux/AuthReducer/action';
           })
         }
         else if(res?.payload?.msg == "LoggedIn Successfull")
-          nevigate('/', {replace : true}); 
+          nevigate('/', {replace : true});
       });
     }
   
@@ -149,7 +151,9 @@ import { login } from '../Redux/AuthReducer/action';
                   _hover={{
                     bg: 'blue.500',
                   }}
+                  loadingText='Logging'
                   onClick={loginUser}
+                  isLoading={loading}
                   >
                   Login
                 </Button>

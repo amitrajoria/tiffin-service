@@ -6,8 +6,7 @@ const orderSchema = new Schema ({
     total : String,
     coupon_id : String,
     delivery : Number,
-    payment : String,
-    added : {type : String, default : new Date().toLocaleDateString()}
+    payment : String
 }, {
     versionKey : false,
     timestamps : true

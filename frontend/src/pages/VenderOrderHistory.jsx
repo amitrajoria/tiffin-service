@@ -190,11 +190,11 @@ const VenderOrderHistory = () => {
               <Flex>
                 <Box>
                   <FormLabel>Date From : </FormLabel>
-                  <Input type='date' maxWidth={'200px'} value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)}/>
+                  <Input type='date' width={{base: '55px', sm: '55px', md: 'auto'}} value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)}/>
                 </Box>
                 <Box ml={2}>
                   <FormLabel>To : </FormLabel>
-                  <Input type='date' maxWidth={'200px'} value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)}/>
+                  <Input type='date' width={{base: '55px', sm: '55px', md: 'auto'}} value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)}/>
                 </Box>              
               </Flex>
               <Flex mt={'auto'}>

@@ -24,6 +24,7 @@ const Profile = () => {
     pg_id : ""
   }
   const [formState, setFormState] = useState(initState);
+  const [loading, setLoading] = useState(false);
   const { name, email, mobile, room_no, description, address, pg, image } = formState;
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -74,8 +75,10 @@ const Profile = () => {
 
   const formSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch(updateProfile(formState))
     .then((res) => {
+      setLoading(false);
       if(res?.type === 'USER_SUCCESS') {
         toast({
           title: "Profile Updated",
@@ -86,7 +89,7 @@ const Profile = () => {
       }
     } )
     .catch((err) => {
-      console.log(err)
+      setLoading(false);
       toast({
         title: err?.payload,
         position: 'top-right',
@@ -175,7 +178,12 @@ const Profile = () => {
                   <FormLabel>Address</FormLabel>
                   <Textarea className={inputBgColor} name='address' value={address} onChange={handleChange} />
                 </FormControl>  
-                <Button mt={8} colorScheme='blue' onClick={(e) => formSubmit(e)}>Save</Button>
+                <Button mt={8} 
+                  colorScheme='blue' 
+                  isLoading={loading}
+                  loadingText="Saving..."
+                  onClick={(e) => formSubmit(e)}
+                  >Save</Button>
               </SimpleGrid>
   {/* </Box> */}
 </Box>

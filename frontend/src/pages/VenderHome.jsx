@@ -164,7 +164,7 @@ const VenderHome = () => {
                                 {(loop === 1) ? 
                                 <>
                                   <Td rowSpan={rowspan}>{index+1}</Td>
-                                  <Td rowSpan={rowspan}>{makeDate(order?.added)}</Td>
+                                  <Td rowSpan={rowspan}>{makeDate(order?.createdAt)}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.name}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.mobile}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.room_no}</Td>
