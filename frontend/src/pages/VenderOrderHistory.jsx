@@ -1,4 +1,4 @@
-import { Box, Button, Card, Center, Flex, Heading, List, ListItem, Skeleton, Spacer, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Card, Center, Flex, FormControl, FormLabel, Heading, Input, List, ListItem, Skeleton, Spacer, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrdersAnalytics, getOrdersHistory } from '../Redux/AppReducer/action';
@@ -12,26 +12,38 @@ const VenderOrderHistory = () => {
   const tableBgColor = useColorModeValue('white', '#292b34');
   const tableBorderColor = useColorModeValue('2px solid lightgrey', '2px solid darkslategray');
   const [ordersAvailable, setOrdersAvailable] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const [initOrdersAvailable, setInitOrdersAvailable] = useState(null);
   const [isAnalytics, setIsAnalytics] = useState(null);
+  const [initIsAnalytics, setInitIsAnalytics] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [analytics, setAnalytics] = useState([]);
   const [totalOrders, setTotalOrders] = useState(0);
+  const [filterDateFrom, setFilterDateFrom] = useState(undefined);
+  const [filterDateTo, setFilterDateTo] = useState(undefined);
+  const [filterApplied, setFilterApplied] = useState(false);
 
 
     useEffect(() => {
-      if(orders.length == 0) {
+      if(orders.length == 0 && !filterApplied) {
+        console.log("USE EFFECT OrDER WORKING");
         dispatch(getOrdersHistory())
         .then((res) => {
           // console.log(res);
             if(res.type == "SUCCESS") {
               setOrders(res?.payload);
-              if(res?.payload?.length > 0) 
+              if(res?.payload?.length > 0)  {
                 setOrdersAvailable(true);
-              else 
+                setInitOrdersAvailable(true);
+              }
+              else {
                 setOrdersAvailable(false);
+                setInitOrdersAvailable(false);
+              }
             }
-            else 
+            else {
               setOrdersAvailable(false);
+              setInitOrdersAvailable(false);
+            }
         })
       }
       else if(orders.length > 0)
@@ -40,21 +52,26 @@ const VenderOrderHistory = () => {
     
 
     useEffect(() => {
-      if(analytics.length == 0) {
+      if(analytics.length == 0 && !filterApplied) {
         dispatch(getOrdersAnalytics())
         .then((res) => {
           // console.log(res);
             if(res.type == "SUCCESS") {
               if(res?.payload) {
                 setIsAnalytics(true);
+                setInitIsAnalytics(true);
                 setAnalytics(res?.payload?.totalOrdersSummary)
                 setTotalOrders(res?.payload?.totalOrders[0]?.sum)
               }
-              else 
+              else {
                 setIsAnalytics(false);
+                setInitIsAnalytics(false);
+              }
             }
-            else 
+            else {
               setIsAnalytics(false);
+              setInitIsAnalytics(false);
+            }
         })
       }
       else if(analytics.length > 0)
@@ -62,10 +79,54 @@ const VenderOrderHistory = () => {
     }, [analytics.length])
 
 
+    const applyFilters = () => {
+      var startDate = (filterDateFrom) ? new Date(filterDateFrom).toISOString() : undefined;
+      var endDate = (filterDateTo) ? new Date(filterDateTo).toISOString() : undefined;
+      setFilterApplied(true);
+      dispatch(getOrdersHistory(`startDate=${startDate}&endDate=${endDate}`))
+      .then((res) => {
+        console.log(res);
+          if(res.type == "SUCCESS") {
+            setOrders(res?.payload);
+            if(res?.payload?.length > 0) 
+              setOrdersAvailable(true);
+            else 
+              setOrdersAvailable(false);
+          }
+          else 
+            setOrdersAvailable(false);
+      })
+      dispatch(getOrdersAnalytics(`startDate=${startDate}&endDate=${endDate}`))
+      .then((res) => {
+          if(res.type == "SUCCESS") {
+            if(res?.payload) {
+              setIsAnalytics(true);
+              setAnalytics(res?.payload?.totalOrdersSummary)
+              setTotalOrders(res?.payload?.totalOrders[0]?.sum)
+            }
+            else 
+              setIsAnalytics(false);
+          }
+          else 
+            setIsAnalytics(false);
+      })
+    }
+
+    const resetFilters = () => {
+      setFilterApplied(false);
+      setOrders([]);
+      setAnalytics([]);
+      setFilterDateFrom(undefined);
+      setFilterDateTo(undefined);
+      setOrdersAvailable(null);
+      setIsAnalytics(null);
+    }
+
+
   return (
     <>
         <Flex justify={'space-between'} margin={'20px 0'}>
-            <Heading as='h3' size='lg'>{ordersAvailable !== null && ((ordersAvailable) ? "Orders History" : "You haven't got any order yet")}</Heading>
+            <Heading as='h3' size='lg'>{ordersAvailable !== null && ((initOrdersAvailable) ? "Orders History" : "You haven't got any order yet")}</Heading>
         </Flex>
         {
             <Stack>
@@ -79,7 +140,7 @@ const VenderOrderHistory = () => {
         }
         
 
-        {isAnalytics && analytics.length > 0 && <Box bg={tableBgColor} my={8}>
+        {initIsAnalytics && <Box bg={tableBgColor} my={8}>
         {isAnalytics && analytics.length > 0 && <Text textAlign={"center"} fontSize='larger' fontWeight={'bold'} py={4}>{totalOrders} Order from {analytics.length} PGs</Text>}
           <Flex>
           <Spacer />
@@ -121,9 +182,41 @@ const VenderOrderHistory = () => {
         </Box>
         }
 
+        {
+          initOrdersAvailable && 
+          <Box marginBottom={6}>
+            <Text fontSize='larger' fontWeight={'bold'} py={4}>Filter Data</Text>
+            <Flex justifyContent={'space-between'}>
+              <Flex>
+                <Box>
+                  <FormLabel>Date From : </FormLabel>
+                  <Input type='date' maxWidth={'200px'} value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)}/>
+                </Box>
+                <Box ml={2}>
+                  <FormLabel>To : </FormLabel>
+                  <Input type='date' maxWidth={'200px'} value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)}/>
+                </Box>              
+              </Flex>
+              <Flex mt={'auto'}>
+                 { filterApplied && <Button colorScheme='teal' variant='ghost' mr={2} onClick={resetFilters}>
+                    Reset
+                  </Button>
+                  }
+                <Button 
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }} 
+                  onClick={applyFilters}
+                  > Search </Button>
+              </Flex>
+            </Flex>
+          </Box>
+        }
 
         {
-        ordersAvailable && orders?.length > 0 && 
+        initOrdersAvailable &&
         <TableContainer background={tableBgColor} rounded={'lg'}>
             <Table variant='simple'>
                 <TableCaption>Total Orders with quantity of different types of Tiffin</TableCaption>
@@ -159,7 +252,7 @@ const VenderOrderHistory = () => {
                                 {(loop === 1) ? 
                                 <>
                                   <Td rowSpan={rowspan}>{index+1}</Td>
-                                  <Td rowSpan={rowspan}>{makeDate(order?.added)}</Td>
+                                  <Td rowSpan={rowspan}>{makeDate(order?.createdAt)}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.name}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.mobile}</Td>
                                   <Td rowSpan={rowspan}>{order?.user?.room_no}</Td>

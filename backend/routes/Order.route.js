@@ -10,25 +10,21 @@ const OrderController = Router();
 const makeDate = (req) => {
     let createdAt={};
     if(req.query.startDate !== undefined && req.query.endDate !== undefined) {
-        // matchQuery["added"] = req.query.date;
-        let startDate = req.query.startDate;
-        let endDate = req.query.endDate;
+        let startDate = new Date(req.query.startDate);
+        let endDate = new Date(req.query.endDate);
         startDate.setHours(0,0,0);
         endDate.setHours(23,59,59);
         createdAt = {"$gte": startDate, "$lt": endDate};
-        // console.log("ORDERS if PART -> ",createdAt);
     }
     else if(req.query.startDate !== undefined) {
         let startDate = new Date(req.query.startDate);
         startDate.setHours(0,0,0,0);
         createdAt = {"$gte": startDate};
-        // console.log("ORDERS ELSE if PART -> ",createdAt);
     }
     else {
         endDate = new Date();
         endDate.setHours(23,59,59);
         createdAt = {"$lt": endDate};
-        // console.log("ORDERS ELSE PART -> ",createdAt);
     }
     return createdAt
 }
