@@ -3,4 +3,4 @@ A tiffin service web-app for people those are living in PGs and Flats so, they c
 
 # LIVE URL
 
-https://github.com/amitrajoria/tiffin-service/tree/master/backend
+https://amit-tiffinservice.netlify.app
