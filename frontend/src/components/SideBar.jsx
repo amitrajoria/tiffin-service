@@ -27,7 +27,6 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
   FiStar,
   FiSettings,
   FiMenu,
@@ -40,6 +39,7 @@ import { ReactText, Link as ReactLink} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../Redux/AppReducer/action';
 import { Link as RouterLink } from 'react-router-dom';
+import { FaShoppingCart, FaHistory, FaDropbox, FaUserEdit, FaUsers, FaRegBuilding, FaUtensils } from "react-icons/fa";
 
 // interface LinkItemProps {
 //   name: string;
@@ -96,20 +96,20 @@ const SidebarContent = ({ onClose, ...rest }) => {
    if(user.role === "customer") {
       setLinkItems([
         { name: 'Home', icon: FiHome, href: '/' },
-        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-        { name: 'Cart', icon: FiCompass, href: '/cart'  },
-        { name: 'Order History', icon: FiStar, href: '/orders' },
-        { name: 'Tiffin Providers', icon: FiSettings, href: '/tiffin-providers' },
+        { name: 'Profile', icon: FaUserEdit, href: '/profile' },
+        { name: 'Cart', icon: FaShoppingCart, href: '/cart'  },
+        { name: 'Order History', icon: FaHistory, href: '/orders' },
+        { name: 'Tiffin Providers', icon: FaDropbox, href: '/tiffin-providers' },
       ])
     }
     else if(user.role === "vender") {
       setLinkItems([
         { name: 'Home', icon: FiHome, href: '/' },
-        { name: 'Profile', icon: FiTrendingUp, href: '/profile' },
-        { name: 'Menu', icon: FiCompass, href: '/menu'  },
-        { name: 'Customers', icon: FiStar, href: '/customers' },
-        { name: 'PG', icon: FiSettings, href: '/pg' },
-        { name: 'Order History', icon: FiCompass, href: '/orders' },
+        { name: 'Profile', icon: FaUserEdit, href: '/profile' },
+        { name: 'Items', icon: FaUtensils, href: '/menu'  },
+        { name: 'Customers', icon: FaUsers, href: '/customers' },
+        { name: 'PG', icon: FaRegBuilding, href: '/pg' },
+        { name: 'Order History', icon: FaHistory, href: '/orders' },
       ])
     }
   }, [user.role]);
@@ -131,7 +131,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'flex', lg: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem href={link?.href || '#'} key={link.name} icon={link.icon}>
+        <NavItem href={link?.href || '#'} key={link.name} icon={link.icon} onClick={onClose}>
           {link.name}
         </NavItem>
       ))}

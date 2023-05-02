@@ -178,7 +178,7 @@ const Cart = () => {
                   {
                     cartEmpty === null && <CartTotalSkeleton />
                   }
-                  { !cartEmpty && 
+                  { cartEmpty === false && 
                     <Card
                       padding={4}
                       // mt={6}

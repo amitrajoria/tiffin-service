@@ -38,8 +38,7 @@ const Customers = () => {
     // console.log(Customers);
 
     const copyLink = (e) => {
-        navigator.clipboard.writeText(`http://localhost:3000/register?vender=${user._id}`);
-        alert("Link Copied to Clipboard");
+        navigator.clipboard.writeText(`https://tifffin-service-api.onrender.com/register?vender=${user._id}`);
         toast({
             title: "Link Copied to Clipboard",
             position: 'top-right',
