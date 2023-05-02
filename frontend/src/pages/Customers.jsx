@@ -38,7 +38,7 @@ const Customers = () => {
     // console.log(Customers);
 
     const copyLink = (e) => {
-        navigator.clipboard.writeText(`https://tifffin-service-api.onrender.com/register?vender=${user._id}`);
+        navigator.clipboard.writeText(`https://vercel-tiffinservice-backend.vercel.app/register?vender=${user._id}`);
         toast({
             title: "Link Copied to Clipboard",
             position: 'top-right',
