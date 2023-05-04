@@ -6,3 +6,13 @@ Check the API doc in backend folder
 # LIVE URL
 
 https://amit-tiffinservice.vercel.app/
+
+Demo credentials : 
+
+Customer : 
+  amit@gmail.com
+  amit123
+ 
+Vender : 
+  tiffin.wala@gmail.com 
+  tiffin.wala123
