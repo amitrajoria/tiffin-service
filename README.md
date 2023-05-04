@@ -7,7 +7,7 @@ Check the API doc in backend folder
 
 https://amit-tiffinservice.vercel.app/
 
-Demo credentials : 
+Demo login credentials : 
 
 Customer : 
   amit@gmail.com
