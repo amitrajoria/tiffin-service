@@ -30,7 +30,9 @@ const makeDate = (req) => {
 }
 
 const getCustomerOrders = async (user_id, req, res) => {
-    const orders = await OrderModel.aggregate([{$match : {user_id : new mongoose.Types.ObjectId(user_id)}}, {$lookup: {
+    const orders = await OrderModel.aggregate([{$match : {user_id : new mongoose.Types.ObjectId(user_id)}}
+        , {$sort : {createdAt : -1} }
+        , {$lookup: {
             from: "order_relations",
             localField: "_id",
             foreignField: "order_id",
